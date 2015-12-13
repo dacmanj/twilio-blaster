@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @group_membership.group_id %>
+</p>
+
+<p>
+  <strong>Contact:</strong>
+  <%= @group_membership.contact_id %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @group_membership.role %>
+</p>
+
+<%= link_to 'Edit', edit_group_membership_path(@group_membership) %> |
+<%= link_to 'Back', group_memberships_path %>

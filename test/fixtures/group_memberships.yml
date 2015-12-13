@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: group_memberships
+#
+#  id         :integer          not null, primary key
+#  group_id   :integer
+#  contact_id :integer
+#  role       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group_id: 1
+  contact_id: 1
+  role: MyString
+
+two:
+  group_id: 1
+  contact_id: 1
+  role: MyString
