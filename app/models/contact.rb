@@ -14,5 +14,11 @@
 #
 
 class Contact < ActiveRecord::Base
+  has_many :group_memberships
+  has_many :groups, through: :group_memberships
   belongs_to :user
+
+  def name
+    "#{first_name} #{last_name}"
+  end
 end
