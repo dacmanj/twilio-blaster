@@ -21,6 +21,7 @@ gem 'omniauth-google-oauth2'
 gem 'pg'
 gem 'simple_form'
 group :development do
+  gem 'annotate'
   gem 'better_errors'
   gem 'hub', :require=>nil
   gem 'quiet_assets'
