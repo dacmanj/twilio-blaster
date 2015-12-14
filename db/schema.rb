@@ -37,21 +37,6 @@ ActiveRecord::Schema.define(version: 20151214023324) do
   add_index "contacts_messages", ["contacts_id"], name: "index_contacts_messages_on_contacts_id", using: :btree
   add_index "contacts_messages", ["messages_id"], name: "index_contacts_messages_on_messages_id", using: :btree
 
-  create_table "destroys", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "directories", force: :cascade do |t|
-    t.string   "phone_number"
-    t.datetime "opt_in"
-    t.integer  "user_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
-
-  add_index "directories", ["user_id"], name: "index_directories_on_user_id", using: :btree
-
   create_table "group_memberships", force: :cascade do |t|
     t.integer  "group_id"
     t.integer  "contact_id"
@@ -98,5 +83,4 @@ ActiveRecord::Schema.define(version: 20151214023324) do
   end
 
   add_foreign_key "contacts", "users"
-  add_foreign_key "directories", "users"
 end
