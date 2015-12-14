@@ -2,8 +2,11 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :body %>
-    <%= f.input :to %>
+    <%= f.input :body, :as => :text, :input_html => {:maxlength => 140, :size => 40}%>
+
+    <%= f.association :groups %>
+    <%= f.association :contacts %>
+    <%= f.input :to, :readonly => true %>
     <%= f.input :from %>
     <%= f.input :status %>
   </div>
