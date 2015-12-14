@@ -5,10 +5,8 @@
     <%= f.input :name %>
   </div>
 
-
   <div class="form-inputs">
-    <%= f.select :type, Group.valid_types %>
-    <%= f.input :type %>
+    <%= f.input :type, collection: Group.valid_types, include_blank: false, selected: @group.type %>
   </div>
 
   <div class="form-inputs">
