@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151213170529) do
+ActiveRecord::Schema.define(version: 20151214023324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(version: 20151213170529) do
   end
 
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
+
+  create_table "contacts_messages", id: false, force: :cascade do |t|
+    t.integer "contacts_id"
+    t.integer "messages_id"
+  end
+
+  add_index "contacts_messages", ["contacts_id"], name: "index_contacts_messages_on_contacts_id", using: :btree
+  add_index "contacts_messages", ["messages_id"], name: "index_contacts_messages_on_messages_id", using: :btree
 
   create_table "destroys", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -57,6 +65,24 @@ ActiveRecord::Schema.define(version: 20151213170529) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "type"
+  end
+
+  create_table "groups_messages", id: false, force: :cascade do |t|
+    t.integer "groups_id"
+    t.integer "messages_id"
+  end
+
+  add_index "groups_messages", ["groups_id"], name: "index_groups_messages_on_groups_id", using: :btree
+  add_index "groups_messages", ["messages_id"], name: "index_groups_messages_on_messages_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "body"
+    t.string   "to"
+    t.string   "from"
+    t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
