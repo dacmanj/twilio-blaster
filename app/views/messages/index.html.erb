@@ -1,6 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Messages</h1>
+<h1>Messages</h1>
 
 <table class="table table-striped">
   <thead>
@@ -8,21 +6,25 @@
       <th>Body</th>
       <th>To</th>
       <th>From</th>
+      <th>Date</th>
       <th>Status</th>
-      <th colspan="3"></th>
+      <th>Direction</th>
+      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @messages.each do |message| %>
       <tr>
-        <td><%= message.body %></td>
-        <td><%= message.to %></td>
+        <td><%= link_to truncate(message.body, length:15), message %></td>
+        <td><%= truncate(message.to, length:15) %></td>
         <td><%= message.from %></td>
+        <td><%= l message.created_at, format: :short %></td>
         <td><%= message.status %></td>
-        <td><%= link_to 'Show', message %></td>
-        <td><%= link_to 'Edit', edit_message_path(message) %></td>
-        <td><%= link_to 'Destroy', message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= message.direction %></td>
+        <td><%= link_to glyph(:file), message %>
+            <%= link_to glyph(:pencil), edit_message_path(message) %>
+            <%= link_to glyph(:trash), message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

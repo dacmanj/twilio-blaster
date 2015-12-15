@@ -7,7 +7,7 @@
     <%= f.association :groups %>
     <%= f.association :contacts %>
     <%= f.input :to, :readonly => true %>
-    <%= f.input :from %>
+    <%= f.input :from, input_html: {value: f.object.from || ENV["TWILIO_PHONE_NUMBER"] } %>
     <%= f.input :media_url %>
     <%= f.input :status, :readonly => true %>
   </div>
