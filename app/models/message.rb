@@ -25,7 +25,8 @@ class Message < ActiveRecord::Base
     p "processing new message"
     if (self.direction == "incoming")
       #todo send notification to administrators of incoming message
-      self.status = received
+      self.status = "received"
+
     end
     if (self.direction == "outgoing" || self.direction.blank?)
       self.direction = "outgoing"

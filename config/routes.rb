@@ -12,6 +12,6 @@ Rails.application.routes.draw do
   get '/auth/failure' => 'sessions#failure'
 
   post 'twilio/voice' => 'twilio#voice'
-  post 'twilio/notify' => 'twilio#notify'
+  post 'twilio/inbound' => 'twilio#inbound'
   post 'twilio/status' => 'twilio#status'
 end

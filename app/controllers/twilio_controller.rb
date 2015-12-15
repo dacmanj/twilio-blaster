@@ -31,6 +31,28 @@ class TwilioController < ApplicationController
     render plain: message.sid
   end
 
+  def inbound
+    #Parameters: {"ToCountry"=>"US", "ToState"=>"District Of Columbia", "SmsMessageSid"=>"SM22c6ba1f26bd99b9967217cdc78cd185", "NumMedia"=>"0", "ToCity"=>"", "FromZip"=>"29169", "SmsSid"=>"SM22c6ba1f26bd99b9967217cdc78cd185", "FromState"=>"SC", "SmsStatus"=>"received", "FromCity"=>"COLUMBIA", "Body"=>"Test", "FromCountry"=>"US", "To"=>"2027592300", "ToZip"=>"", "NumSegments"=>"1", "MessageSid"=>"SM22c6ba1f26bd99b9967217cdc78cd185", "AccountSid"=>"AC26cffd81446061228c9feb816c7744f2", "From"=>"8033609843", "ApiVersion"=>"2008-08-01"}
+    p "message received"
+    p params
+    message = Message.new do |m|
+      m.to = params[:To]
+      m.from = params[:From]
+      m.body = params[:Body]
+      m.direction = "incoming"
+    end
+    message.save
+    contact = Contact.find_by_phone_number(params[:From])
+    MessageLog.new(sid: params[:MessageSid], to: message.to, from: message.from, message_id: message.id, date_sent: Time.now).save
+    if (contact.present?)
+      from = "#{contact.name} #{contact.phone_number}"
+    else
+      from = params[:From]
+    end
+    Message.new(contact_ids: User.where(:role => 2).map{|x| x.contact.id}, direction: "outgoing", body: "DO NOT REPLY... From #{from}: #{params[:Body]}").save
+    render_twiml Twilio::TwiML::Response.new
+  end
+
   def status
    # the status can be found in params['MessageStatus']
 
