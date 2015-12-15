@@ -65,7 +65,7 @@ class Message < ActiveRecord::Base
       msg[:from] = msg[:from] || ENV['TWILIO_PHONE_NUMBER']
       msg[:media_url] = img[msg[:img].to_sym] if msg[:img].present?
       #filter parameters
-      base_url = msg[:base_url] || ENV["base_url"] || "https://e6d5bcc3.ngrok.io" #request.base_url
+      base_url = msg[:base_url] || ENV['BASE_URL'] || "https://e6d5bcc3.ngrok.io" #request.base_url
       msg.delete(:media_url) if msg[:media_url].blank?
       msg[:status_callback] = base_url + '/twilio/status'
       msg.slice!(:to, :from, :body, :media_url, :status_callback)
