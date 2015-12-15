@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :message_logs
   resources :messages
   resources :group_memberships
   resources :groups

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214023324) do
+ActiveRecord::Schema.define(version: 20151215122421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,21 @@ ActiveRecord::Schema.define(version: 20151214023324) do
 
   add_index "contacts_messages", ["contacts_id"], name: "index_contacts_messages_on_contacts_id", using: :btree
   add_index "contacts_messages", ["messages_id"], name: "index_contacts_messages_on_messages_id", using: :btree
+
+  create_table "destroys", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "directories", force: :cascade do |t|
+    t.string   "phone_number"
+    t.datetime "opt_in"
+    t.integer  "user_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "directories", ["user_id"], name: "index_directories_on_user_id", using: :btree
 
   create_table "group_memberships", force: :cascade do |t|
     t.integer  "group_id"
@@ -63,6 +78,23 @@ ActiveRecord::Schema.define(version: 20151214023324) do
   add_index "groups_messages", ["groups_id"], name: "index_groups_messages_on_groups_id", using: :btree
   add_index "groups_messages", ["messages_id"], name: "index_groups_messages_on_messages_id", using: :btree
 
+  create_table "message_logs", force: :cascade do |t|
+    t.string   "to"
+    t.string   "from"
+    t.string   "status"
+    t.string   "sid"
+    t.string   "error_code"
+    t.string   "error_message"
+    t.datetime "date_sent"
+    t.string   "account_sid"
+    t.string   "billing_reference"
+    t.integer  "message_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "message_logs", ["message_id"], name: "index_message_logs_on_message_id", using: :btree
+
   create_table "messages", force: :cascade do |t|
     t.string   "body"
     t.string   "to"
@@ -70,6 +102,7 @@ ActiveRecord::Schema.define(version: 20151214023324) do
     t.string   "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "media_url"
   end
 
   create_table "users", force: :cascade do |t|
@@ -83,4 +116,6 @@ ActiveRecord::Schema.define(version: 20151214023324) do
   end
 
   add_foreign_key "contacts", "users"
+  add_foreign_key "directories", "users"
+  add_foreign_key "message_logs", "messages"
 end

@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>To:</strong>
+  <%= @message_log.to %>
+</p>
+
+<p>
+  <strong>From:</strong>
+  <%= @message_log.from %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @message_log.status %>
+</p>
+
+<p>
+  <strong>Sid:</strong>
+  <%= @message_log.sid %>
+</p>
+
+<p>
+  <strong>Error code:</strong>
+  <%= @message_log.error_code %>
+</p>
+
+<p>
+  <strong>Error message:</strong>
+  <%= @message_log.error_message %>
+</p>
+
+<p>
+  <strong>Date sent:</strong>
+  <%= @message_log.date_sent %>
+</p>
+
+<p>
+  <strong>Account sid:</strong>
+  <%= @message_log.account_sid %>
+</p>
+
+<p>
+  <strong>Billing reference:</strong>
+  <%= @message_log.billing_reference %>
+</p>
+
+<p>
+  <strong>Message:</strong>
+  <%= @message_log.message %>
+</p>
+
+<%= link_to 'Edit', edit_message_log_path(@message_log) %> |
+<%= link_to 'Back', message_logs_path %>

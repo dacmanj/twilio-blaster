@@ -40,22 +40,4 @@ class TwilioController < ApplicationController
 
   end
 
-  private
-  def send_message(msg)
-    img = {
-        :status_open_image => "https://www.opm.gov/img/Policy/SnowAndDismissal/status_open.jpg",
-        :status_closed_image => "https://www.opm.gov/img/Policy/SnowAndDismissal/status_closed.jpg",
-        :status_alert_image => "https://www.opm.gov/img/Policy/SnowAndDismissal/status_alert.jpg"
-      }
-
-      msg[:media_url] = img[msg[:img].to_sym] if msg[:img].present?
-      #filter parameters
-      msg.slice!(:to, :from, :body, :media_url, :status_callback)
-      p msg
-      p "test"
-      client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
-      base_url = "https://3770516d.ngrok.io" #request.base_url
-      message = client.messages.create from: msg[:from], to: msg[:to], body: msg[:body], media_url: msg[:media_url], status_callback: base_url + '/twilio/status'
-  end
-
 end

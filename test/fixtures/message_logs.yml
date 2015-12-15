@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  to: MyString
+  from: MyString
+  status: MyString
+  sid: MyString
+  error_code: MyString
+  error_message: MyString
+  date_sent: 2015-12-15 07:20:37
+  account_sid: MyString
+  billing_reference: MyString
+  message_id: 
+
+two:
+  to: MyString
+  from: MyString
+  status: MyString
+  sid: MyString
+  error_code: MyString
+  error_message: MyString
+  date_sent: 2015-12-15 07:20:37
+  account_sid: MyString
+  billing_reference: MyString
+  message_id: 
