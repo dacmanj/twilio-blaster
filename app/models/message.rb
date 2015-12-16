@@ -16,7 +16,7 @@
 class Message < ActiveRecord::Base
   include Filterable
   scope :status, -> (status) { where status: status }
-  scope :direction, -> (direction) { where direction: directions }
+  scope :direction, -> (direction) { where direction: direction }
 
   has_and_belongs_to_many :contacts
   has_and_belongs_to_many :groups
