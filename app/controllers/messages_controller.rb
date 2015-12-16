@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.filter(params.slice(:status)).order("created_at DESC")
+    @messages = Message.filter(params.slice(:direction,:status)).order("created_at DESC")
   end
 
   # GET /messages/1
