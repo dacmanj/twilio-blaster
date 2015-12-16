@@ -2,14 +2,24 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :body, :as => :text, :input_html => {:maxlength => 140, :size => 40}%>
+    <%= f.input :body, :as => :text, :input_html => {:maxlength => 140, :size => 40}, required: true%>
 
     <%= f.association :groups %>
-    <%= f.association :contacts %>
-    <%= f.input :to, :readonly => true %>
+    <%= f.association :contacts, :collection => Contact.all.map{|a| [a.name, a.id, {"data-phone-number" => a.phone_number}]} %>
+    <%= f.input :to, :readonly => true, :required => true %>
     <%= f.input :from, input_html: {value: f.object.from || ENV["TWILIO_PHONE_NUMBER"] } %>
+    <%    img = { nil => nil,
+            :status_open_image => "https://www.opm.gov/img/Policy/SnowAndDismissal/status_open.jpg",
+            :status_closed_image => "https://www.opm.gov/img/Policy/SnowAndDismissal/status_closed.jpg",
+            :status_alert_image => "https://www.opm.gov/img/Policy/SnowAndDismissal/status_alert.jpg"
+          }
+          img_options = img.collect{|k,v| [k.to_s.titleize,v]}
+     %>
+     <div class="form-group string optional message_img_for_media_url">
+       <label class="string optional control-label" for="message_img_for_media_url">Image Library</label>
+       <%= select_tag 'message_img_for_media_url', options_for_select(img_options), :class => "string optional form-control" %>
+     </div>
     <%= f.input :media_url %>
-    <%= f.input :status, :readonly => true %>
   </div>
 
   <div class="form-actions">

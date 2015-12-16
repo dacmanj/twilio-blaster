@@ -1,11 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Body:</strong>
-  <%= @message.body %>
-</p>
-
-<p>
   <strong>To:</strong>
   <%= @message.to %>
 </p>
@@ -16,9 +11,20 @@
 </p>
 
 <p>
+  <strong>Sent:</strong>
+  <%= @message.created_at %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @message.body %>
+</p>
+
+<p>
   <strong>Status:</strong>
   <%= @message.status %>
 </p>
+
 <p>
   <strong>Direction:</strong>
   <%= @message.direction %>

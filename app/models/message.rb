@@ -14,11 +14,11 @@
 #
 
 class Message < ActiveRecord::Base
+  include Filterable
   has_and_belongs_to_many :contacts
   has_and_belongs_to_many :groups
   belongs_to :user
   has_many :message_logs, dependent: :destroy
-
   after_create :process_new_message
 
   def process_new_message
