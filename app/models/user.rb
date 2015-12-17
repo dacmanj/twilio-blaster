@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
   def self.create_with_omniauth(auth)
     email = auth["info"]["email"]
     domain = /@(.+$)/.match(email)[1] #find domain portion of email
+
+    #whitelist domains
     if (domain.casecmp("pflag.org") != 0)
       raise UserDomainError, "#{domain} is an invalid email address domain."
     end
