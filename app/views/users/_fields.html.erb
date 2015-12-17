@@ -1,0 +1,11 @@
+<fieldset id="#user-form">
+
+<%= f.input :name %>
+<%= f.input :email %>
+<% role_array = Role.all.map { |r| [r.name.titleize, r.id] } %>
+<%= f.association :roles, :collection => role_array %>
+
+<%= f.input :uid %>
+<%= f.input :provider %>
+
+</fieldset>
