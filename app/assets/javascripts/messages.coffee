@@ -1,7 +1,7 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-$ ->
+ready = ->
 
   #put url from image library in form field
   select_image_from_library = ->
@@ -19,7 +19,11 @@ $ ->
     grp = $("#message_group_ids :selected").map (i,v) ->
       "["+$(v).html()+"]"
     ppl = $("#message_contact_ids :selected").map (i,v) ->
-      "[#{$(v).html()} <#{$(v).attr('data-phone-number')}>]"
+      "[#{$(v).attr('data-name')} <#{$(v).attr('data-phone-number')}>]"
     to = jQuery.merge(grp.toArray(),ppl.toArray()).join(", ")
     $("#message_to").val(to)
   $("#message_group_ids, #message_contact_ids").change fill_out_to_field
+
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
