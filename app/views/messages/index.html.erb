@@ -21,9 +21,14 @@
         <td><%= message.from %></td>
         <td><%= l message.created_at, format: :short %></td>
         <td><%= message.status %></td>
-        <td><%= message.direction %></td>
+        <td><%= case message.direction
+                  when "incoming"
+                    glyph(:cloud_download)
+                  when "outgoing"
+                    glyph(:cloud_upload)
+                end%></td>
         <td><%= link_to glyph(:file), message %>
-            <%= link_to glyph(:pencil), edit_message_path(message) %>
+            <% #link_to glyph(:pencil), edit_message_path(message) %>
             <%= link_to glyph(:trash), message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -32,4 +37,4 @@
 
 <br>
 
-<%= link_to 'New Message', new_message_path, :class => "btn btn-primary" %>
+<%= link_to 'Send Message', new_message_path, :class => "btn btn-primary" %>

@@ -71,7 +71,7 @@ class ContactsController < ApplicationController
     end
 
     def admin_only
-      unless current_user.admin?
+      unless current_user.is_admin?
         redirect_to :back, :alert => "Access denied."
       end
     end

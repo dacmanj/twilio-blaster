@@ -34,9 +34,13 @@ class User < ActiveRecord::Base
     if (domain.casecmp("pflag.org") != 0 && domain.casecmp("dcmanjr.com") != 0)
       raise UserDomainError, "#{domain} is an invalid email address domain."
     end
+    contact = Contact.find_by_email(email)
+    raise UserDomainError, "#{email} is not recognized." unless contact.present?
+
     create! do |user|
       user.provider = auth['provider']
       user.uid = auth['uid']
+      user.contact = contact
       if auth['info']
          user.name = auth['info']['name'] || ""
          user.email = auth['info']['email'] || ""
