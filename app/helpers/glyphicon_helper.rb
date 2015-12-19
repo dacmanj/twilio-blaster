@@ -3,7 +3,7 @@ include ActionView::Helpers::TagHelper
 
 module GlyphiconHelper
   def glyph params
-    if params.class == Symbol
+    if params.class == Symbol || params.class == String
       glyph = params
       text = ''
       glyphicon_class = 'glyphicon glyphicon-' + glyph.to_s

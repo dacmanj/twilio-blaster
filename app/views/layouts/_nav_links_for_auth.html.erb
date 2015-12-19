@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-  <% if current_user.try(:admin?) %>
+  <% if current_user.try(:is_admin?) %>
     <li><%= link_to 'Messages', messages_path %></li>
     <li><%= link_to 'Message Log', message_logs_path %></li>
     <li><%= link_to 'Groups', groups_path %></li>
@@ -9,6 +9,7 @@
 <% end %>
 <% if user_signed_in? %>
   <li><%= link_to 'Sign out', signout_path %></li>
+  <%= current_user.roles.map{|h| h.name} %>
 <% else %>
   <li><%= link_to 'Sign in', signin_path %></li>
 <% end %>

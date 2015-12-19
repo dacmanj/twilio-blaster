@@ -14,7 +14,7 @@
 
 class User < ActiveRecord::Base
   rolify
-  enum role: [:user, :vip, :admin]
+#  enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, :if => :new_record?
   has_one :contact
 
@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
     domain = /@(.+$)/.match(email)[1] #find domain portion of email
 
     #whitelist domains
-    if (domain.casecmp("pflag.org") != 0)
+    if (domain.casecmp("pflag.org") != 0 && domain.casecmp("dcmanjr.com") != 0)
       raise UserDomainError, "#{domain} is an invalid email address domain."
     end
     create! do |user|

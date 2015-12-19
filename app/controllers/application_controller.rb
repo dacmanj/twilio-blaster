@@ -7,6 +7,11 @@ class ApplicationController < ActionController::Base
   helper_method :user_signed_in?
   helper_method :correct_user?
 
+  rescue_from ActionController::RedirectBackError do |exception|
+    redirect_to root_path, :alert => "Access Denied"
+  end
+
+
   private
     def current_user
       begin
