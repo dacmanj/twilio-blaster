@@ -53,6 +53,11 @@ class ContactsController < ApplicationController
     end
   end
 
+  def import
+    Contact.import(params[:file])
+    redirect_to contacts_url, notice: "Contacts imported."
+  end
+
   # DELETE /contacts/1
   # DELETE /contacts/1.json
   def destroy

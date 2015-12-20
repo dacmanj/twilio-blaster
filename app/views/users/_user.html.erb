@@ -15,6 +15,6 @@
     <span style="color:<%=color%>"><%=glyph(:user)%></span>
     <% end %>
 </td>
-<td>
+<td class="rowlink-skip">
   <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button-xs') unless user == current_user %>
 </td>

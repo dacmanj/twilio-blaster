@@ -4,6 +4,11 @@ Rails.application.routes.draw do
   resources :group_memberships
   resources :groups
   resources :contacts
+
+  resources :contacts do
+    collection { post :import }
+  end
+
   resources :users
   root to: 'visitors#index'
   get '/auth/:provider/callback' => 'sessions#create'

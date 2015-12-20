@@ -29,7 +29,7 @@
                   when "forwarding"
                     glyph(:transfer)
                 end%></td>
-        <td><%= link_to glyph(:file), message %>
+        <td class="rowlink-skip"><%= link_to glyph(:file), message %>
             <%= link_to glyph(:trash), message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

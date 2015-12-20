@@ -1,5 +1,7 @@
 <h1>Contacts</h1>
 
+<%= link_to 'New Contact', new_contact_path, :class => 'btn btn-primary' %>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -24,7 +26,7 @@
         <td><%= contact.groups.count %></td>
         <td><%= contact.opt_in.present? %></td>
         <td><%= contact.user.present? %></td>
-        <td><%= link_to '', edit_contact_path(contact) %>
+        <td class="rowlink-skip"><%= link_to '', edit_contact_path(contact) %>
             <%= link_to glyph(:trash), contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -33,4 +35,9 @@
 
 <br>
 
-<%= link_to 'New Contact', new_contact_path, :class => 'btn btn-primary' %>
+<h2>Import Contacts</h2>
+
+<%= form_tag import_contacts_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import", :class => "btn btn-primary" %>
+<% end %>

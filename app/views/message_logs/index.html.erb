@@ -24,7 +24,7 @@
         <td><%= message_log.from %></td>
         <td><%= "#{message_log.status} #{message_log.error_code} #{message_log.error_message}"%></td>
         <td><%= message_log.message.body.truncate(25) unless message_log.message.blank? %></td>
-        <td><%= link_to glyph(:file), message_log %><%= link_to glyph(:trash), message_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="rowlink-skip"><%= link_to glyph(:file), message_log %><%= link_to glyph(:trash), message_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

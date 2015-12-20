@@ -18,7 +18,7 @@
         <td><%= group.contacts.count %></td>
         <td><%= group.group_type %></td>
         <td><%= glyph :glyph => :pencil, :url => edit_group_path(group) %></td>
-        <td><%= link_to glyph(:trash), group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="rowlink-skip"><%= link_to glyph(:trash), group, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
