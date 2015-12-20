@@ -3,7 +3,6 @@
 <table class="table table-striped" data-link="row">
   <thead>
     <tr>
-      <th>ID</th>
       <th>Date</th>
       <th>To</th>
       <th>From</th>
@@ -17,7 +16,6 @@
   <tbody data-link="row" class="rowlink">
     <% @messages.each do |message| %>
       <tr>
-        <td><%= link_to message.id, message %></td>
         <td><%= link_to truncate(message.body, length:15), message %></td>
         <td><%= l message.created_at, format: :short %></td>
         <td><%= truncate(message.to, length:15) %></td>
@@ -31,7 +29,6 @@
                     glyph(:arrow_right)
                 end%></td>
         <td><%= link_to glyph(:file), message %>
-            <% #link_to glyph(:pencil), edit_message_path(message) %>
             <%= link_to glyph(:trash), message, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

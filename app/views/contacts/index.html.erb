@@ -14,7 +14,7 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody data-link="row" class="rowlink">
     <% @contacts.each do |contact| %>
       <tr>
         <td><%= contact.first_name %></td>
@@ -24,8 +24,7 @@
         <td><%= contact.groups.count %></td>
         <td><%= contact.opt_in.present? %></td>
         <td><%= contact.user.present? %></td>
-        <td><%= link_to glyph(:file), contact %>
-            <%= link_to glyph(:pencil), edit_contact_path(contact) %>
+        <td><%= link_to '', edit_contact_path(contact) %>
             <%= link_to glyph(:trash), contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
