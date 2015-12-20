@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'jasny_bootstrap_extension_rails'
 gem 'authority'
 gem 'rolify'
+gem 'will_paginate'
 
 group :development, :test do
   gem 'byebug'

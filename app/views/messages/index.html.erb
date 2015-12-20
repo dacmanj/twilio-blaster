@@ -1,7 +1,8 @@
 <h1>Messages</h1>
-<br>
 <%= link_to 'Send Message', new_message_path, :class => "btn btn-primary" %>
 <br>
+<%= will_paginate @messages %>
+
 <table class="table table-striped" data-link="row">
   <thead>
     <tr>
@@ -37,3 +38,4 @@
     <% end %>
   </tbody>
 </table>
+<%= will_paginate @messages %>

@@ -1,6 +1,8 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'will_paginate/view_helpers/link_renderer'
+require 'will_paginate/view_helpers/action_view'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

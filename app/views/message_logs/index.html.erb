@@ -1,6 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Message Logs</h1>
+<%= will_paginate @message_logs %>
 
 <table class="table table-striped">
   <thead>
@@ -29,3 +30,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%= will_paginate @message_logs %>
