@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'authority'
 gem 'rolify'
+gem 'rake'
 
 group :development, :test do
   gem 'byebug'
