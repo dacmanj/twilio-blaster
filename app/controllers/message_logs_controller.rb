@@ -6,7 +6,7 @@ class MessageLogsController < ApplicationController
   # GET /message_logs
   # GET /message_logs.json
   def index
-    @message_logs = MessageLog.all
+    @message_logs = MessageLog.all.filter(params.slice(:to_phone_number,:from_phone_number,:message_id,:error_code,:error_message,:billing_reference,:direction,:status)).order("created_at DESC")
   end
 
   # GET /message_logs/1

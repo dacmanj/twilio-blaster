@@ -64,6 +64,12 @@ class TwilioController < ApplicationController
      msg_log.account_sid = params[:AccountSid]
      msg_log.save
    end
+   msg = msg_log.message
+   msg_count = msg.message_logs.count
+   pending = msg.message_logs.where(status: nil).count
+   delivered = msg.message_logs.where("status = ?","delivered").count
+   msg.status = "delivered #{delivered}/#{msg_count}"
+   msg.save
    render_twiml Twilio::TwiML::Response.new
 
   end

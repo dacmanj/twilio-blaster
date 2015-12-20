@@ -2,15 +2,15 @@
 #
 # Table name: messages
 #
-#  id         :integer          not null, primary key
-#  body       :string
-#  to         :string
-#  from       :string
-#  status     :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  media_url  :string
-#  direction  :string
+#  id                :integer          not null, primary key
+#  body              :string
+#  to_phone_number   :string
+#  from_phone_number :string
+#  status            :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  media_url         :string
+#  direction         :string
 #
 
 class Message < ActiveRecord::Base
@@ -32,23 +32,22 @@ class Message < ActiveRecord::Base
       #todo send notification to administrators of incoming message
       self.status = "received"
     end
-    if (self.direction == "outgoing" || self.direction == "forwarding" || self.direction.blank?)
-      self.status = "pending"
-      recipients = []
-      self.groups.each { |g|
-        g.contacts.each{ |c|
-          self.contacts.push(c) unless self.contacts.include? c
-        }
-      }
+    self.direction = "outgoing" if self.direction.blank?
 
-      self.contacts.each { |c|
-        recipients.push("#{c.name} <#{c.phone_number}>")
-        message = Message.send_message to: c.phone_number, body: self.body, media_url: self.media_url
-        MessageLog.new(sid: message.sid, to_phone_number: message.to, from_phone_number: message.from, message_id: self.id, date_sent: Time.now).save
+    self.status = "pending"
+    recipients = []
+    self.groups.each { |g|
+      g.contacts.each{ |c|
+        self.contacts.push(c) unless self.contacts.include? c
       }
-      self.to_phone_number = recipients.join(", ")
-      self.status = "sent"
-    end
+    }
+    self.contacts.each { |c|
+      recipients.push("#{c.name} <#{c.phone_number}>")
+      message = Message.send_message to: c.phone_number, body: self.body, media_url: self.media_url
+      MessageLog.new(sid: message.sid, to_phone_number: message.to, from_phone_number: message.from, message_id: self.id, date_sent: Time.now).save
+    }
+    self.to_phone_number = recipients.join(", ")
+    self.status = "sent"
     self.save
   end
 

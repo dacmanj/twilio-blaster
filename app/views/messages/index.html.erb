@@ -1,5 +1,7 @@
 <h1>Messages</h1>
-
+<br>
+<%= link_to 'Send Message', new_message_path, :class => "btn btn-primary" %>
+<br>
 <table class="table table-striped" data-link="row">
   <thead>
     <tr>
@@ -20,7 +22,7 @@
         <td><%= truncate(message.to_phone_number, length:15) %></td>
         <td><%= message.from_phone_number %></td>
         <td><%= link_to truncate(message.body, length:15), message %></td>
-        <td><%= message.status %></td>
+        <td class="rowlink-skip"><%= link_to message.status, message_logs_path(:message_id => message.id) %></td>
         <td><%= case message.direction
                   when "incoming"
                     glyph(:arrow_left)
@@ -35,7 +37,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'Send Message', new_message_path, :class => "btn btn-primary" %>

@@ -1,0 +1,2 @@
+<br>
+<%= (link_to 'Send Message', new_message_path, :class => "btn btn-primary") if current_user.present? && current_user.is_admin?%>

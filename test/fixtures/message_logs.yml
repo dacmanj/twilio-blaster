@@ -3,8 +3,8 @@
 # Table name: message_logs
 #
 #  id                :integer          not null, primary key
-#  to                :string
-#  from              :string
+#  to_phone_number   :string
+#  from_phone_number :string
 #  status            :string
 #  sid               :string
 #  error_code        :string
