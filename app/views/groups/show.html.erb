@@ -11,6 +11,6 @@
 <p><strong>Members:</strong>
 <div class="well">
 <% @group.contacts.each do |c| %>
-  <%= c.name %><br>
+  <%= "#{c.name} <#{c.phone_number}>" %><br>
 <% end %>
 </div>
