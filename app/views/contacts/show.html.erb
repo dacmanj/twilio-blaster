@@ -29,6 +29,3 @@
   <strong>User:</strong>
   <%= link_to @contact.user.id, user_path(@contact.user.id) unless @contact.user.blank? %>
 </p>
-
-<%= link_to 'Edit', edit_contact_path(@contact) %> |
-<%= link_to 'Back', contacts_path %>

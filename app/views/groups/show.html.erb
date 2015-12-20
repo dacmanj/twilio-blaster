@@ -3,6 +3,11 @@
   <%= @group.name %>
 </p>
 
+<p>
+  <strong>Type:</strong>
+  <%= @group.group_type %>
+</p>
+
 <p><strong>Members:</strong>
 <div class="well">
 <% @group.contacts.each do |c| %>
