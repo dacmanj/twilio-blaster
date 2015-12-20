@@ -49,7 +49,7 @@ class TwilioController < ApplicationController
     else
       from = params[:From]
     end
-    Message.new(contact_ids: User.where(:role => 2).map{|x| x.contact.id}, direction: "outgoing", body: "DO NOT REPLY... From #{from}: #{params[:Body]}").save
+    Message.new(contact_ids: User.where(:role => 2).map{|x| x.contact.id}, from: from, to: message.to, direction: "forwarding", body: "DO NOT REPLY... From #{from}: #{params[:Body]}").save
     render_twiml Twilio::TwiML::Response.new
   end
 
