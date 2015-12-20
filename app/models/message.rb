@@ -67,6 +67,8 @@ class Message < ActiveRecord::Base
       msg.slice!(:to, :from, :body, :media_url, :status_callback)
       p "sending message via twilio"
       p msg
+
+      p "sid: #{Rails.application.secrets.twilio_account_sid.present?}"
       client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
       message = client.messages.create msg
   end

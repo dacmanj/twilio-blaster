@@ -16,7 +16,6 @@
   <tbody data-link="row" class="rowlink">
     <% @messages.each do |message| %>
       <tr>
-        <td><%= link_to truncate(message.body, length:15), message %></td>
         <td><%= l message.created_at, format: :short %></td>
         <td><%= truncate(message.to, length:15) %></td>
         <td><%= message.from %></td>
