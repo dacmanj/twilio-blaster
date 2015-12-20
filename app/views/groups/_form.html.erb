@@ -6,7 +6,7 @@
   </div>
 
   <div class="form-inputs">
-    <%= f.input :type, collection: Group.valid_types, include_blank: false, selected: @group.type %>
+    <%= f.input :group_type, collection: Group.valid_types, include_blank: false, selected: @group.group_type %>
   </div>
 
   <div class="form-inputs">

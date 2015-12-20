@@ -36,20 +36,12 @@ class Message < ActiveRecord::Base
       self.status = "pending"
       recipients = []
       self.groups.each { |g|
-
         g.contacts.each{ |c|
-          recipients.push("#{c.name} <#{c.phone_number}>")
-          message = Message.send_message to: c.phone_number, body: self.body, media_url: self.media_url
-          MessageLog.new(sid: message.sid, to: message.to, from: message.from, message_id: self.id, date_sent: Time.now).save
+          self.contacts.push(c) unless self.contacts.include? c
         }
       }
 
       self.contacts.each { |c|
-        already_sent = false
-        self.groups.each { |g|
-          already_sent = g.contacts.include? c
-        }
-        next if already_sent
         recipients.push("#{c.name} <#{c.phone_number}>")
         message = Message.send_message to: c.phone_number, body: self.body, media_url: self.media_url
         MessageLog.new(sid: message.sid, to: message.to, from: message.from, message_id: self.id, date_sent: Time.now).save

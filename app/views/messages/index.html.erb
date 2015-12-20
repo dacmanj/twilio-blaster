@@ -23,9 +23,9 @@
         <td><%= message.status %></td>
         <td><%= case message.direction
                   when "incoming"
-                    glyph(:cloud_download)
+                    glyph(:arrow_left)
                   when "outgoing"
-                    glyph(:cloud_upload)
+                    glyph(:arrow_right)
                 end%></td>
         <td><%= link_to glyph(:file), message %>
             <% #link_to glyph(:pencil), edit_message_path(message) %>

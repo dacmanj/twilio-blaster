@@ -6,7 +6,7 @@ module GlyphiconHelper
     if params.class == Symbol || params.class == String
       glyph = params
       text = ''
-      glyphicon_class = 'glyphicon glyphicon-' + glyph.to_s
+      glyphicon_class = 'glyphicon glyphicon-' + glyph.to_s.gsub("_","-")
     else
       text = params[:text] || ''
       glyph = params[:glyph]
