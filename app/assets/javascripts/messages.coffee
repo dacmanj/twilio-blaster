@@ -21,7 +21,7 @@ ready = ->
     ppl = $("#message_contact_ids :selected").map (i,v) ->
       "[#{$(v).attr('data-name')} <#{$(v).attr('data-phone-number')}>]"
     to = jQuery.merge(grp.toArray(),ppl.toArray()).join(", ")
-    $("#message_to").val(to)
+    $("#message_to_phone_number").val(to)
   $("#message_group_ids, #message_contact_ids").change fill_out_to_field
 
 $(document).ready(ready)

@@ -20,8 +20,8 @@
       <tr>
         <td><%= link_to message_log.id, message_log %></td>
         <td><%= message_log.date_sent %></td>
-        <td><%= message_log.to %></td>
-        <td><%= message_log.from %></td>
+        <td><%= message_log.to_phone_number %></td>
+        <td><%= message_log.from_phone_number %></td>
         <td><%= "#{message_log.status} #{message_log.error_code} #{message_log.error_message}"%></td>
         <td><%= message_log.message.body.truncate(25) unless message_log.message.blank? %></td>
         <td class="rowlink-skip"><%= link_to glyph(:file), message_log %><%= link_to glyph(:trash), message_log, method: :delete, data: { confirm: 'Are you sure?' } %></td>

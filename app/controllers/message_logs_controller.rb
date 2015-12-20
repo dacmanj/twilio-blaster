@@ -74,6 +74,6 @@ class MessageLogsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_log_params
-      params.require(:message_log).permit(:to, :from, :status, :sid, :error_code, :error_message, :date_sent, :account_sid, :billing_reference, :message_id)
+      params.require(:message_log).permit(:to_phone_number, :from_phone_number, :status, :sid, :error_code, :error_message, :date_sent, :account_sid, :billing_reference, :message_id)
     end
 end

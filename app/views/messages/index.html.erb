@@ -17,8 +17,8 @@
     <% @messages.each do |message| %>
       <tr>
         <td><%= l message.created_at, format: :short %></td>
-        <td><%= truncate(message.to, length:15) %></td>
-        <td><%= message.from %></td>
+        <td><%= truncate(message.to_phone_number, length:15) %></td>
+        <td><%= message.from_phone_number %></td>
         <td><%= link_to truncate(message.body, length:15), message %></td>
         <td><%= message.status %></td>
         <td><%= case message.direction

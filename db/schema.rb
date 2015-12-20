@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151220010336) do
+ActiveRecord::Schema.define(version: 20151220182930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,8 +79,8 @@ ActiveRecord::Schema.define(version: 20151220010336) do
   add_index "groups_messages", ["message_id"], name: "index_groups_messages_on_message_id", using: :btree
 
   create_table "message_logs", force: :cascade do |t|
-    t.string   "to"
-    t.string   "from"
+    t.string   "to_phone_number"
+    t.string   "from_phone_number"
     t.string   "status"
     t.string   "sid"
     t.string   "error_code"
@@ -97,11 +97,11 @@ ActiveRecord::Schema.define(version: 20151220010336) do
 
   create_table "messages", force: :cascade do |t|
     t.string   "body"
-    t.string   "to"
-    t.string   "from"
+    t.string   "to_phone_number"
+    t.string   "from_phone_number"
     t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "media_url"
     t.string   "direction"
   end

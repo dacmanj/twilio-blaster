@@ -15,6 +15,8 @@
 
 class Message < ActiveRecord::Base
   include Filterable
+  include Authority::Abilities
+
   scope :status, -> (status) { where status: status }
   scope :direction, -> (direction) { where direction: direction }
 
@@ -42,9 +44,9 @@ class Message < ActiveRecord::Base
       self.contacts.each { |c|
         recipients.push("#{c.name} <#{c.phone_number}>")
         message = Message.send_message to: c.phone_number, body: self.body, media_url: self.media_url
-        MessageLog.new(sid: message.sid, to: message.to, from: message.from, message_id: self.id, date_sent: Time.now).save
+        MessageLog.new(sid: message.sid, to_phone_number: message.to, from_phone_number: message.from, message_id: self.id, date_sent: Time.now).save
       }
-      self.to = recipients.join(", ")
+      self.to_phone_number = recipients.join(", ")
       self.status = "sent"
     end
     self.save

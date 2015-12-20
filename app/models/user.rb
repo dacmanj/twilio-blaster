@@ -14,8 +14,10 @@
 
 class User < ActiveRecord::Base
   rolify
+  include Authority::UserAbilities
 #  enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, :if => :new_record?
+
   has_one :contact
 
   def set_default_role
@@ -23,6 +25,14 @@ class User < ActiveRecord::Base
       self.add_role :admin
     else
       self.add_role :user
+    end
+  end
+
+  def messages
+    if contact.blank?
+      return nil
+    else
+      #messages = MessageLog.where(to: )
     end
   end
 

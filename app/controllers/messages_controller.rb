@@ -1,11 +1,14 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_message, only: [:show, :edit, :update, :destroy]
+  authorize_actions_for Message
+  #, :except => :create
 
   # GET /messages
   # GET /messages.json
   def index
-    @messages = Message.filter(params.slice(:direction,:status)).order("created_at DESC")
+
+      @messages = Message.filter(params.slice(:direction,:status)).order("created_at DESC")
   end
 
   # GET /messages/1
@@ -20,6 +23,7 @@ class MessagesController < ApplicationController
 
   # GET /messages/1/edit
   def edit
+     authorize_action_for(@llama)
   end
 
   # POST /messages
@@ -66,10 +70,12 @@ class MessagesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_message
       @message = Message.find(params[:id])
+      authorize_action_for(@message)
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def message_params
-      params.require(:message).permit(:body, :to, :from, :status, :media_url, group_ids: [], contact_ids: [])
+      params.require(:message).permit(:body, :to_phone_number, :from_phone_number, :status, :media_url, group_ids: [], contact_ids: [])
     end
 end
