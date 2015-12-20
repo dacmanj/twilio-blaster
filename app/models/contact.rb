@@ -37,6 +37,8 @@ class Contact < ActiveRecord::Base
       row = Hash[[header, row].transpose]
       contact = find_by_phone_number(row["phone_number"]) || new
       contact.user = User.find_by_email(row["email"]) || nil
+      group = Group.find(row["group_id"])
+      contact.groups.push(group) unless group.blank?
       contact.attributes = row.to_hash.slice("first_name","last_name","phone_number","email","user_id")
       contact.save!
     end
