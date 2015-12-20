@@ -1,25 +1,28 @@
 <h1>Messages</h1>
 
-<table class="table table-striped">
+<table class="table table-striped" data-link="row">
   <thead>
     <tr>
-      <th>Body</th>
+      <th>ID</th>
+      <th>Date</th>
       <th>To</th>
       <th>From</th>
-      <th>Date</th>
+      <th>Body</th>
       <th>Status</th>
       <th>Direction</th>
       <th></th>
     </tr>
   </thead>
 
-  <tbody>
+  <tbody data-link="row" class="rowlink">
     <% @messages.each do |message| %>
       <tr>
+        <td><%= link_to message.id, message %></td>
         <td><%= link_to truncate(message.body, length:15), message %></td>
+        <td><%= l message.created_at, format: :short %></td>
         <td><%= truncate(message.to, length:15) %></td>
         <td><%= message.from %></td>
-        <td><%= l message.created_at, format: :short %></td>
+        <td><%= link_to truncate(message.body, length:15), message %></td>
         <td><%= message.status %></td>
         <td><%= case message.direction
                   when "incoming"

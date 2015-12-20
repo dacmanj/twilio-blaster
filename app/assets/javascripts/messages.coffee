@@ -24,6 +24,5 @@ ready = ->
     $("#message_to").val(to)
   $("#message_group_ids, #message_contact_ids").change fill_out_to_field
 
-
 $(document).ready(ready)
 $(document).on('page:load', ready)

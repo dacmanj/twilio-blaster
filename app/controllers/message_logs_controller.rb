@@ -1,6 +1,7 @@
 class MessageLogsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_message_log, only: [:show, :edit, :update, :destroy]
+  before_action :admin_only, :except => :show
 
   # GET /message_logs
   # GET /message_logs.json
@@ -16,10 +17,6 @@ class MessageLogsController < ApplicationController
   # GET /message_logs/new
   def new
     @message_log = MessageLog.new
-  end
-
-  # GET /message_logs/1/edit
-  def edit
   end
 
   # POST /message_logs
@@ -64,6 +61,13 @@ class MessageLogsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+
+    def admin_only
+      unless current_user.is_admin?
+        redirect_to :back, :alert => "Access denied."
+      end
+    end
+
     def set_message_log
       @message_log = MessageLog.find(params[:id])
     end
