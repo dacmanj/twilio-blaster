@@ -30,7 +30,7 @@ class Message < ActiveRecord::Base
       #todo send notification to administrators of incoming message
       self.status = "received"
     end
-    if (self.direction == "outgoing" || self.direction.blank?)
+    if (self.direction == "outgoing" || self.direction == "forwarding" || self.direction.blank?)
       self.direction = "outgoing"
       self.status = "pending"
       recipients = []
