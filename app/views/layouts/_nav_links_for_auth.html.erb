@@ -9,7 +9,6 @@
 <% end %>
 <% if user_signed_in? %>
   <li><%= link_to 'Sign out', signout_path %></li>
-  <%= current_user.roles.map{|h| h.name} %>
 <% else %>
   <li><%= link_to 'Sign in', signin_path %></li>
 <% end %>
