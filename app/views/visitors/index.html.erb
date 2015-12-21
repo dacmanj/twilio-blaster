@@ -1,2 +1,27 @@
+<% if user_signed_in? %>
 <br>
 <%= (link_to 'Send Message', new_message_path, :class => "btn btn-primary") if current_user.present? && current_user.is_admin?%>
+<br><br>
+<% if @contact.present? %>
+<div class="well">
+  <p>
+    <b>My Profile</b>
+  </p>
+  <%= simple_form_for(@contact) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :first_name %>
+    <%= f.input :last_name %>
+    <%= f.input :email %>
+    <%= f.input :phone_number %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+  <% end %>
+</div>
+<% end %>
+
+<% end %>
