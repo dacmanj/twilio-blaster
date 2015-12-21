@@ -1,7 +1,9 @@
 class ContactsController < ApplicationController
   before_action :authenticate_user!
-  before_action :admin_only, :except => :show
+#  before_action :admin_only, :except => :show
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
+  authorize_actions_for Contact
+
 
   # GET /contacts
   # GET /contacts.json
@@ -78,6 +80,8 @@ class ContactsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
       @contact = Contact.find(params[:id])
+      authorize_action_for(@contact)
+
     end
 
     def admin_only

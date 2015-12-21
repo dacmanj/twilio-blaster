@@ -15,6 +15,7 @@
 require 'csv'
 
 class Contact < ActiveRecord::Base
+  include Authority::Abilities
   has_many :group_memberships
   has_many :groups, through: :group_memberships
   has_and_belongs_to_many :messages
