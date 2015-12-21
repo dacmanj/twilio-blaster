@@ -22,10 +22,37 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, :value => "Update Contact Info" %>
   </div>
   <% end %>
 </div>
 <% end %>
+
+<%= will_paginate @message_logs %>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>To</th>
+        <th>From</th>
+        <th>Date</th>
+        <th>Message</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @message_logs.each do |message_log| %>
+        <tr>
+          <td><%= message_log.to_phone_number %></td>
+          <td><%= message_log.from_phone_number %></td>
+          <td><%= l message_log.date_sent, :format => :shorter %></td>
+          <td><%= message_log.message.body %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= will_paginate @message_logs %>
+
 
 <% end %>

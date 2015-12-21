@@ -19,6 +19,7 @@
 
 class MessageLog < ActiveRecord::Base
   include Filterable
+  include Authority::Abilities
   belongs_to :message
 
   scope :message_id, -> (id) { where message_id: id }
@@ -28,6 +29,7 @@ class MessageLog < ActiveRecord::Base
   scope :billing_reference, -> (billing_reference) { where billing_reference: billing_reference }
   scope :to_phone_number, -> (to) {where "to_phone_number LIKE ?", "%#{to}"}
   scope :from_phone_number, -> (from) {where "from_phone_number LIKE ?", "%#{from}"}
+  scope :by_phone_number, -> (p) {where "from_phone_number LIKE ? or to_phone_number LIKE ?", "%#{p}", "%#{p}"}
 
   scope :direction, -> (direction) { where direction: direction }
 
