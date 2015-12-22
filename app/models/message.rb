@@ -29,8 +29,15 @@ class Message < ActiveRecord::Base
   def process_new_message
     p "processing new message"
     if (self.direction == "incoming")
-      #todo send notification to administrators of incoming message
-      self.status = "received"
+      #check to see if message from contact and if so re-write "caller" id
+      contact = Contact.find_by_phone_number(self.from_phone_number)
+      if (contact.present?)
+        self.from_phone_number = "#{contact.name} #{contact.phone_number}"
+      end
+      
+      #send sms to administrators with incoming message
+      Message.new(contact_ids: User.with_role(:admin).map{|x| x.contact.id}, from_phone_number: self.from_phone_number, to_phone_number: self.to_phone_number, direction: "outgoing", status: "forwarding", body: "DO NOT REPLY... From #{self.from_phone_number}: #{self.body}").save
+      self.status = "forwarded"
     end
     self.direction = "outgoing" if self.direction.blank?
 

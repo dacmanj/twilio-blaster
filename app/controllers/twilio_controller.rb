@@ -40,16 +40,9 @@ class TwilioController < ApplicationController
       m.from_phone_number = params[:From]
       m.body = params[:Body]
       m.direction = "incoming"
+      m.message_logs.push(MessageLog.new(sid: params[:MessageSid], to_phone_number: params[:To], from_phone_number: params[:From], date_sent: Time.now))
     end
     message.save
-    contact = Contact.find_by_phone_number(params[:From])
-    MessageLog.new(sid: params[:MessageSid], to: message.to_phone_number, from: message.from_phone_number, message_id: message.id, date_sent: Time.now).save
-    if (contact.present?)
-      from = "#{contact.name} #{contact.phone_number}"
-    else
-      from = params[:From]
-    end
-    Message.new(contact_ids: User.with_role(:admin).map{|x| x.contact.id}, from_phone_number: message.from_phone_number, to_phone_number: message.to_phone_number, direction: "forwarding", status: "forwarding", body: "DO NOT REPLY... From #{from}: #{params[:Body]}").save
     render_twiml Twilio::TwiML::Response.new
   end
 
