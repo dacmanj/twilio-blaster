@@ -46,7 +46,7 @@
           <td><%= message_log.to_phone_number %></td>
           <td><%= message_log.from_phone_number %></td>
           <td><%= l message_log.date_sent, :format => :shorter %></td>
-          <td><%= message_log.message.body %></td>
+          <td><%= message_log.message.body unless message_log.message.blank? %></td>
         </tr>
       <% end %>
     </tbody>
