@@ -11,20 +11,25 @@
   <p>
     <b>My Profile</b>
   </p>
-  <%= simple_form_for(@contact) do |f| %>
-  <%= f.error_notification %>
+
+  <%= simple_form_for @user do |u| %>
+  <%= u.simple_fields_for :contacts do |c| %>
+  <%= c.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :first_name %>
-    <%= f.input :last_name %>
-    <%= f.input :email %>
-    <%= f.input :phone_number %>
+    <%= c.input :first_name %>
+    <%= c.input :last_name %>
+    <%= c.input :email %>
+    <%= c.input :phone_number %>
   </div>
+  <% end %>
+
+  <% end %>
+
 
   <div class="form-actions">
     <%= f.button :submit, :value => "Update Contact Info" %>
   </div>
-  <% end %>
 </div>
 <% end %>
 
@@ -42,17 +47,16 @@
 
     <tbody>
       <% @message_logs.each do |message_log| %>
-        <tr>
-          <td><%= message_log.to_phone_number %></td>
-          <td><%= message_log.from_phone_number %></td>
-          <td><%= l message_log.date_sent, :format => :shorter %></td>
-          <td><%= message_log.message.body unless message_log.message.blank? %></td>
-        </tr>
+      <tr>
+        <td><%= message_log.to_phone_number %></td>
+        <td><%= message_log.from_phone_number %></td>
+        <td><%= l message_log.date_sent, :format => :shorter %></td>
+        <td><%= message_log.message.body unless message_log.message.blank? %></td>
+      </tr>
       <% end %>
     </tbody>
   </table>
 </div>
 <%= will_paginate @message_logs %>
-
 
 <% end %>

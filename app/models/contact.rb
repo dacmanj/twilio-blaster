@@ -25,7 +25,6 @@ class Contact < ActiveRecord::Base
   validates :phone_number, presence: true
 
 
-
   def name
     "#{first_name} #{last_name}"
   end

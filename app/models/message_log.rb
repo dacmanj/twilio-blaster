@@ -20,6 +20,7 @@
 class MessageLog < ActiveRecord::Base
   include Filterable
   include Authority::Abilities
+  before_save :check_numbers
   belongs_to :message
 
   scope :message_id, -> (id) { where message_id: id }
@@ -30,8 +31,16 @@ class MessageLog < ActiveRecord::Base
   scope :to_phone_number, -> (to) {where "to_phone_number LIKE ?", "%#{to}"}
   scope :from_phone_number, -> (from) {where "from_phone_number LIKE ?", "%#{from}"}
   scope :by_phone_number, -> (p) {where "from_phone_number LIKE ? or to_phone_number LIKE ?", "%#{p}", "%#{p}"}
+  scope :by_phone_numbers, -> (p) {where "from_phone_number IN (?) or to_phone_number IN (?)", p, p}
 
   scope :direction, -> (direction) { where direction: direction }
 
+
+
+  def check_numbers
+
+    self.to_phone_number # = valid_number(self.to_phone_number)
+    self.from_phone_number
+  end
 
 end
