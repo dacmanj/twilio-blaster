@@ -5,34 +5,6 @@
 <br>
 <% end %>
 <% if user_signed_in? %>
-<br>
-<% if @contact.present? %>
-<div class="well">
-  <p>
-    <b>My Profile</b>
-  </p>
-
-  <%= simple_form_for @user do |u| %>
-  <%= u.simple_fields_for :contacts do |c| %>
-  <%= c.error_notification %>
-
-  <div class="form-inputs">
-    <%= c.input :first_name %>
-    <%= c.input :last_name %>
-    <%= c.input :email %>
-    <%= c.input :phone_number %>
-  </div>
-  <% end %>
-
-  <% end %>
-
-
-  <div class="form-actions">
-    <%= f.button :submit, :value => "Update Contact Info" %>
-  </div>
-</div>
-<% end %>
-
 <%= will_paginate @message_logs %>
 <div class="table-responsive">
   <table class="table table-striped">

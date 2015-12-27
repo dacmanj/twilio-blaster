@@ -12,6 +12,7 @@ gem 'jasny_bootstrap_extension_rails'
 gem 'authority'
 gem 'rolify'
 gem 'will_paginate'
+gem 'phone_number'
 
 group :development, :test do
   gem 'byebug'

@@ -35,7 +35,7 @@ class MessageLog < ActiveRecord::Base
 
   scope :direction, -> (direction) { where direction: direction }
 
-
+  phone_number :phone_number
 
   def check_numbers
 
