@@ -45,7 +45,8 @@
   <%= @message_log.billing_reference %>
 </p>
 
+<% if current_user.is_admin? && @message_log.message.present? %>
 <p>
-  <strong>Message:</strong>
-  <%= @message_log.message %>
+  <%= link_to "Message (#{@message_log.id})", message_path(@message_log.message), class: "btn btn-default"%>
 </p>
+<% end %>

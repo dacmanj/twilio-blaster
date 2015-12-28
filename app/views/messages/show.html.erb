@@ -27,3 +27,15 @@
   <strong>Direction:</strong>
   <%= @message.direction %>
 </p>
+
+<p>
+  <strong>
+    Message Logs:
+  </strong>
+</p>
+
+<div class="well">
+<% @message.message_logs.each do |m| %>
+  <%= link_to m.to_phone_number, message_log_path(m), :class => "btn btn-default" %>
+<% end %>
+</div>
