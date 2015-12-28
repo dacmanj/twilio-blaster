@@ -10,3 +10,6 @@ en:
     formats:
       short: "%m/%d/%y %l:%M:%S%p %z"
       shorter: "%m/%d/%y %l:%M:%S%p"
+  helpers:
+    links:
+      destroy: "Delete"

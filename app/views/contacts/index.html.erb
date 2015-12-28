@@ -18,17 +18,17 @@
 
   <tbody data-link="row" class="rowlink">
     <% @contacts.each do |contact| %>
-      <tr>
-        <td><%= contact.first_name %></td>
-        <td><%= contact.last_name %></td>
-        <td><%= contact.email %></td>
-        <td><%= contact.phone_number %></td>
-        <td><%= contact.groups.count %></td>
-        <td><%= contact.opt_in.present? %></td>
-        <td><%= contact.user.present? %></td>
-        <td class="rowlink-skip"><%= link_to '', edit_contact_path(contact) %>
-            <%= link_to glyph(:trash), contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <tr>
+      <td><%= contact.first_name %></td>
+      <td><%= contact.last_name %></td>
+      <td><%= contact.email %></td>
+      <td><%= contact.phone_number %></td>
+      <td><%= contact.groups.count %></td>
+      <td><%= glyph(contact.opt_in.present? ? "check" : "unchecked") %></td>
+      <td><%= glyph(contact.user.present? ? "check" : "unchecked") %></td>
+      <td class="rowlink-skip"><%= link_to '', edit_contact_path(contact) %>
+        <%= link_to glyph(:trash), contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
     <% end %>
   </tbody>
 </table>
@@ -37,7 +37,11 @@
 
 <h2>Import Contacts</h2>
 
-<%= form_tag import_contacts_path, multipart: true do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Import", :class => "btn btn-primary" %>
+<%= form_tag import_contacts_path, multipart: true, class: "form-inline" do %>
+<div class="fileinput fileinput-new" data-provides="fileinput">
+  <span class="btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" name="..."></span>
+  <span class="fileinput-filename"></span>
+  <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+</div>
+<%= submit_tag "Import", :class => "btn btn-primary" %>
 <% end %>
