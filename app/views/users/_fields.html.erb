@@ -7,5 +7,18 @@
 
 <%= f.input :uid %>
 <%= f.input :provider %>
+<% if @user.contacts.present? %>
+<h2>Contacts</h2>
+<% end %>
+<%= f.simple_fields_for :contacts do |p| %>
+<div class="well">
+   <%= p.input :first_name %>
+   <%= p.input :last_name %>
+   <%= p.input :phone_number %>
+ </div>
+
+
+
+ <% end %>
 
 </fieldset>

@@ -25,7 +25,12 @@
       <td><%= contact.phone_number %></td>
       <td><%= contact.groups.count %></td>
       <td><%= glyph(contact.opt_in.present? ? "check" : "unchecked") %></td>
-      <td><%= glyph(contact.user.present? ? "check" : "unchecked") %></td>
+      <% if contact.user.present? %>
+        <td class="rowlink-skip"><%= link_to glyph(:check), edit_user_path(contact.user) %></td>
+      <% else %>
+        <td><%= glyph(:unchecked) %></td>
+
+      <% end %>
       <td class="rowlink-skip"><%= link_to '', edit_contact_path(contact) %>
         <%= link_to glyph(:trash), contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>

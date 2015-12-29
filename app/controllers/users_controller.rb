@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
-
+    @user.contacts.build
   end
 
 
@@ -46,7 +46,7 @@ class UsersController < ApplicationController
 
   def secure_params
     if current_user.is_admin?
-      params.require(:user).permit(:name, :email, :uid, :provider, role_ids: [])
+      params.require(:user).permit(:name, :email, :uid, :provider, role_ids: [], contacts_attributes: [:first_name, :last_name, :phone_number])
     elsif @user == current_user
       params.require(:user).permit(:email)
     end
