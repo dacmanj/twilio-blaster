@@ -21,6 +21,7 @@ class Contact < ActiveRecord::Base
   has_many :groups, through: :group_memberships
   has_and_belongs_to_many :messages
   belongs_to :user
+  scope :raw_phone_number, -> (p) {where "raw_phone_number LIKE ?", "%#{p}"}
 
   validates :phone_number, presence: true
   phone_number :phone_number

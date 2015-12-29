@@ -31,14 +31,15 @@ class Message < ActiveRecord::Base
     if (self.direction == "incoming")
       #check to see if message from contact and if so re-write "caller" id
       normalized_phone_num = PhoneNumber::Number.parse(self.from_phone_number).to_s("%C%a%m%p")
-      p "normalized phone num: #{normalized_phone_num}"
-      contact = Contact.find_by_phone_number(normalized_phone_num)
+      p "normalized from phone num: #{normalized_phone_num}"
+      contact = Contact.raw_phone_number(normalized_phone_num).first
       if (contact.present?)
-        self.from_phone_number = "#{contact.name} <#{contact.phone_number}>"
+        self.from_phone_number = "#{contact.name} <#{contact.twilio_phone_number}>"
       end
 
       #send sms to administrators with incoming message
-      Message.new(contact_ids: User.with_role(:admin).map{|x| x.contact.id}, from_phone_number: self.from_phone_number, to_phone_number: self.to_phone_number, direction: "outgoing", status: "forwarding", body: "DO NOT REPLY... From #{self.from_phone_number}: #{self.body}").save
+      admin_contact_ids = User.with_role(:admin).map{|x| x.contacts}.flatten.map{|x| x.id}
+      Message.new(contact_ids: admin_contact_ids, from_phone_number: self.from_phone_number, to_phone_number: self.to_phone_number, direction: "outgoing", status: "forwarding", body: "DO NOT REPLY... From #{self.from_phone_number}: #{self.body}").save
       self.status = "forwarded"
     end
     self.direction = "outgoing" if self.direction.blank?
