@@ -30,7 +30,7 @@ class Message < ActiveRecord::Base
     p "processing new message"
     if (self.direction == "incoming")
       #check to see if message from contact and if so re-write "caller" id
-      normalized_phone_num = PhoneNumber::Number.parse(self.from_phone_number).to_s("+%c%a%m%p")
+      normalized_phone_num = PhoneNumber::Number.parse(self.from_phone_number).to_s("%C%a%m%p")
       contact = Contact.find_by_phone_number(normalized_phone_num)
       if (contact.present?)
         self.from_phone_number = "#{contact.name} #{contact.phone_number}"
