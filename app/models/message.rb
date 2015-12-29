@@ -30,11 +30,12 @@ class Message < ActiveRecord::Base
     p "processing new message"
     if (self.direction == "incoming")
       #check to see if message from contact and if so re-write "caller" id
-      contact = Contact.find_by_phone_number(self.from_phone_number)
+      normalized_phone_num = PhoneNumber::Number.parse(self.from_phone_number).to_s("+%c%a%m%p")
+      contact = Contact.find_by_phone_number(normalized_phone_num)
       if (contact.present?)
         self.from_phone_number = "#{contact.name} #{contact.phone_number}"
       end
-      
+
       #send sms to administrators with incoming message
       Message.new(contact_ids: User.with_role(:admin).map{|x| x.contact.id}, from_phone_number: self.from_phone_number, to_phone_number: self.to_phone_number, direction: "outgoing", status: "forwarding", body: "DO NOT REPLY... From #{self.from_phone_number}: #{self.body}").save
       self.status = "forwarded"
