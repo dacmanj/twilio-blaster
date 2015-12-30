@@ -5,8 +5,8 @@
     <%= f.input :first_name %>
     <%= f.input :last_name %>
     <%= f.input :email %>
-    <%= f.input :phone_number %>
-    <%= f.input :opt_in, include_blank: true, readonly: true %>
+    <%= f.input :phone_number, input_html: {"data-mask" => "(999) 999-9999"} %>
+    <% f.input :opt_in, include_blank: true, readonly: true #hidden%>
     <%= f.association :groups %>
     <%= f.association :user %>
   </div>

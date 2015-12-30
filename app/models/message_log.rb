@@ -20,7 +20,7 @@
 class MessageLog < ActiveRecord::Base
   include Filterable
   include Authority::Abilities
-  before_save :check_numbers
+  before_save :fix_numbers
   belongs_to :message
 
   scope :message_id, -> (id) { where message_id: id }
@@ -37,10 +37,10 @@ class MessageLog < ActiveRecord::Base
 
   phone_number :phone_number
 
-  def check_numbers
-
-    self.to_phone_number # = valid_number(self.to_phone_number)
-    self.from_phone_number
+  def fix_numbers
+    twilio_format = Contact.phone_formats[:twilio]
+    self.to_phone_number = PhoneNumber::Number.parse(self.to_phone_number).to_s(twilio_format)
+    self.from_phone_number = PhoneNumber::Number.parse(self.from_phone_number).to_s(twilio_format)
   end
 
 end

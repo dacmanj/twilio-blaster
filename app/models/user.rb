@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   after_initialize :set_default_role, :if => :new_record?
 
   has_many :contacts
-  accepts_nested_attributes_for :contacts, allow_destroy: true
+  accepts_nested_attributes_for :contacts, allow_destroy: true, reject_if: proc { |attributes| attributes['phone_number'].blank? }
 
   def set_default_role
     if User.count == 0

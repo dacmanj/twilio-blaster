@@ -14,7 +14,10 @@
 <div class="well">
    <%= p.input :first_name %>
    <%= p.input :last_name %>
-   <%= p.input :phone_number %>
+   <%= p.input :email %>
+   <%= p.input :phone_number, input_html: {"data-mask" => "(999) 999-9999"}  %>
+   <%= p.association :groups %>
+   <%= p.association :user %>
  </div>
 
 

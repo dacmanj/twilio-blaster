@@ -46,7 +46,7 @@ class UsersController < ApplicationController
 
   def secure_params
     if current_user.is_admin?
-      params.require(:user).permit(:name, :email, :uid, :provider, role_ids: [], contacts_attributes: [:first_name, :last_name, :phone_number])
+      params.require(:user).permit(:name, :email, :uid, :provider, role_ids: [], contacts_attributes: [:first_name, :last_name, :email, :phone_number, :id, :user_id, group_ids: []])
     elsif @user == current_user
       params.require(:user).permit(:email)
     end

@@ -25,7 +25,9 @@ class Contact < ActiveRecord::Base
 
   validates :phone_number, presence: true
   phone_number :phone_number
-
+  def self.phone_formats
+    {twilio: "+%c%a%m%p"}
+  end
 
   def name
     "#{first_name} #{last_name}"
@@ -62,6 +64,6 @@ class Contact < ActiveRecord::Base
   end
 
   def twilio_phone_number
-    self.phone_number.to_s("+%c%a%m%p")
+    self.phone_number.to_s(Contact.phone_formats[:twilio])
   end
 end
