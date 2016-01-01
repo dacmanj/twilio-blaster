@@ -17,17 +17,17 @@ require 'csv'
 
 class Contact < ActiveRecord::Base
   include Authority::Abilities
+  include PhoneNumberFormats
   has_many :group_memberships
   has_many :groups, through: :group_memberships
   has_and_belongs_to_many :messages
   belongs_to :user
+  scope :without, -> (p) {where "raw_phone_number NOT LIKE?","%#{p}"}
   scope :raw_phone_number, -> (p) {where "raw_phone_number LIKE ?", "%#{p}"}
 
   validates :phone_number, presence: true
   phone_number :phone_number
-  def self.phone_formats
-    {twilio: "+%c%a%m%p"}
-  end
+
 
   def name
     "#{first_name} #{last_name}"
@@ -55,15 +55,25 @@ class Contact < ActiveRecord::Base
     end
   end
 
+  def self.search(params)
+    if params.is_a? String
+      normalized_phone_num = parse_phone_num({number: params, format: :raw})
+    else
+      normalized_phone_num = parse_phone_num({number: params[:number], format: :raw})
+    end
+    contact = Contact.raw_phone_number(normalized_phone_num).first
+  end
+
   def self.twilio_phone_number(contacts)
     contact_arr = []
     contacts.each{ |c|
-      contact_arr.push c.phone_number.to_s("+%c%a%m%p")
+      contact_arr.push c.phone_number.to_s(I18n.t("phone_number.raw"))
     }
     contact_arr
   end
 
   def twilio_phone_number
-    self.phone_number.to_s(Contact.phone_formats[:twilio])
+    self.phone_number.to_s(I18n.t("phone_number.twilio"))
   end
+
 end
