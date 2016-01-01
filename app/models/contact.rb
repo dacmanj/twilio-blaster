@@ -64,16 +64,12 @@ class Contact < ActiveRecord::Base
     contact = Contact.raw_phone_number(normalized_phone_num).first
   end
 
-  def self.twilio_phone_number(contacts)
+  def self.raw_phone_numbers(contacts)
     contact_arr = []
     contacts.each{ |c|
-      contact_arr.push c.phone_number.to_s(I18n.t("phone_number.raw"))
+      contact_arr.push c.to_raw
     }
     contact_arr
-  end
-
-  def twilio_phone_number
-    self.phone_number.to_s(I18n.t("phone_number.twilio"))
   end
 
 end

@@ -1,9 +1,6 @@
 # simple_form examples: https://github.com/plataformatec/simple_form#i18n
 # date/time formats, etc: http://guides.rubyonrails.org/i18n.html#adding-date-time-formats
 en:
-  phone_number:
-    twilio: "+%c%a%m%p"
-    raw: "%C%a%m%p"
   simple_form:
     labels:
       message:

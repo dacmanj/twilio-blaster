@@ -34,7 +34,7 @@ class Message < ActiveRecord::Base
       p "normalized from phone num: #{normalized_phone_num}"
       contact = Contact.raw_phone_number(normalized_phone_num).first
       if (contact.present?)
-        self.from_phone_number = "#{contact.name} <#{contact.twilio_phone_number}>"
+        self.from_phone_number = "#{contact.name} <#{contact.to_twilio}>"
       end
 
       #send sms to administrators with incoming message
