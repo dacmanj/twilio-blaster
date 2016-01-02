@@ -1,10 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
-    reset_session
-    session[:user_id] = User.first
-    redirect_to root_url, :notice => 'Signed in!'
-#    redirect_to '/auth/google_oauth2'
+    redirect_to '/auth/google_oauth2'
   end
 
   def create
