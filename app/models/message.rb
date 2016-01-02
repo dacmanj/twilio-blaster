@@ -11,6 +11,7 @@
 #  updated_at        :datetime         not null
 #  media_url         :string
 #  direction         :string
+#  message_type      :string
 #
 
 class Message < ActiveRecord::Base

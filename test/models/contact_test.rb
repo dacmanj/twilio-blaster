@@ -19,4 +19,7 @@ class ContactTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+  test "contact_count" do
+    assert_equal 2, Contact.count
+  end
 end

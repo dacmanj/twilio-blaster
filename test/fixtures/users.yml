@@ -14,12 +14,14 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+john:
+  name: John
   provider: MyString
+  roles: [admin,user]
   uid: MyString
 
-two:
-  name: MyString
+jane:
+  name: Jane
   provider: MyString
   uid: MyString
+  roles: [user]

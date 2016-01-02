@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: groups
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  group_type :string
+#
+
 class GroupsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_group, only: [:show, :edit, :update, :destroy]

@@ -11,18 +11,21 @@
 #  updated_at        :datetime         not null
 #  media_url         :string
 #  direction         :string
+#  message_type      :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  body: MyString
-  to: MyString
-  from: MyString
-  status: MyString
+  id: 1
+  body: Test to John
+  to_phone_number: 015555555555
+  from_phone_number: 015555555556
+  status: Delivered
 
 two:
-  body: MyString
-  to: MyString
-  from: MyString
-  status: MyString
+  id: 2
+  body: Test to Jane
+  to_phone_number: 015555555556
+  from_phone_number: 015555555555
+  status: Delivered

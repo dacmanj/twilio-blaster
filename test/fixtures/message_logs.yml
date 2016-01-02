@@ -20,25 +20,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  to: MyString
-  from: MyString
-  status: MyString
+  to_phone_number: 015555555555
+  from_phone_number: 015555555556
+  status: Delivered
   sid: MyString
   error_code: MyString
   error_message: MyString
   date_sent: 2015-12-15 07:20:37
   account_sid: MyString
   billing_reference: MyString
-  message_id: 
+  message_id: 1
 
 two:
-  to: MyString
-  from: MyString
-  status: MyString
+  to_phone_number: 015555555556
+  from_phone_number: 015555555555
+  status: Delivered
   sid: MyString
   error_code: MyString
   error_message: MyString
   date_sent: 2015-12-15 07:20:37
   account_sid: MyString
   billing_reference: MyString
-  message_id: 
+  message_id: 2
