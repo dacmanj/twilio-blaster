@@ -10,7 +10,7 @@
         default_from = ENV["TWILIO_PHONE_NUMBER"]
       end
     %>
-    <%= f.input :from_phone_number, input_html: {value: f.object.from_phone_number || default_from } %>
+    <%= f.input :from_phone_number, :readonly => true, :required => true, input_html: {value: f.object.from_phone_number || default_from } %>
     <%= f.association :groups %>
     <%= f.association :contacts, :collection => Contact.without(Contact.to_raw(default_from)).map{|a| ["#{a.name} <#{a.phone_number}>", a.id, {"data-name" => a.name,"data-phone-number" => a.phone_number}]} %>
     <%= f.input :to_phone_number, :readonly => true, :required => true %>
