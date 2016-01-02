@@ -38,7 +38,7 @@ class MessageLog < ActiveRecord::Base
   phone_number :phone_number
 
   def fix_numbers
-    twilio_format = Contact.phone_formats[:twilio]
+    twilio_format = Contact.phone_number_format(:twilio)
     self.to_phone_number = PhoneNumber::Number.parse(self.to_phone_number).to_s(twilio_format)
     self.from_phone_number = PhoneNumber::Number.parse(self.from_phone_number).to_s(twilio_format)
   end
