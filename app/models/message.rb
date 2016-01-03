@@ -17,6 +17,10 @@
 class Message < ActiveRecord::Base
   include Filterable
   include Authority::Abilities
+  validates :body, presence: true
+  validates :to_phone_number, presence: true
+  validates :from_phone_number, presence: true
+
 
   scope :status, -> (status) { where status: status }
   scope :direction, -> (direction) { where direction: direction }
@@ -31,12 +35,7 @@ class Message < ActiveRecord::Base
     p "processing new message"
     if (self.direction == "incoming")
       #check to see if message from contact and if so re-write "caller" id
-      normalized_phone_num = PhoneNumber::Number.parse(self.from_phone_number).to_s("%C%a%m%p")
-      p "normalized from phone num: #{normalized_phone_num}"
-      contact = Contact.raw_phone_number(normalized_phone_num).first
-      if (contact.present?)
-        self.from_phone_number = "#{contact.name} <#{contact.to_twilio}>"
-      end
+      self.from_phone_number = Contact.caller_id_lookup(self.from_phone_number)
 
       #send sms to administrators with incoming message
       admin_contact_ids = User.with_role(:admin).map{|x| x.contacts}.flatten.map{|x| x.id}

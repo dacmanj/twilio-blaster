@@ -73,4 +73,14 @@ class Contact < ActiveRecord::Base
     contact_arr
   end
 
+  def caller_id_lookup(num)
+    self.to_raw(num)
+    contact = Contact.raw_phone_number(num).first
+    if (contact.present?)
+      caller_id = "#{contact.name} <#{contact.to_twilio}>"
+    else
+      caller_id = "<#{contact.to_twilio}>"
+    end
+  end
+
 end

@@ -48,6 +48,12 @@ class MessagesControllerTest < ActionController::TestCase
     assert_redirected_to messages_path
   end
 
+  test "should not create message without to, from and body" do
+    m = Message.new
+    assert_not m.save
+
+  end
+
   test "should show message" do
     get :show, id: @message
     assert_response :success
