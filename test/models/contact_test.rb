@@ -20,6 +20,23 @@ class ContactTest < ActiveSupport::TestCase
   #   assert true
   # end
   test "contact_count" do
-    assert_equal 2, Contact.count
+    assert_operator Contact.count, :>=, 1
   end
+
+  test "valid contact" do
+    refute_nil contacts(:one)
+  end
+
+  test "valid contact to_twilio" do
+    assert_equal PhoneNumber::Number.parse(contacts(:one).raw_phone_number).to_s("+%c%a%m%p"), contacts(:one).to_twilio
+  end
+
+  test "valid contact to_raw" do
+    assert_equal PhoneNumber::Number.parse(contacts(:one).raw_phone_number).to_s("%C%a%m%p"), contacts(:one).raw_phone_number
+  end
+
+  test "match contact from phone number" do
+    assert_equal Contact.search(contacts(:one).raw_phone_number), contacts(:one)
+  end
+
 end

@@ -15,6 +15,7 @@ require 'test_helper'
 class GroupMembershipsControllerTest < ActionController::TestCase
   setup do
     @group_membership = group_memberships(:one)
+    log_in_as(users(:john))
   end
 
   test "should get index" do

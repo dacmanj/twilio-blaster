@@ -22,8 +22,9 @@ class Contact < ActiveRecord::Base
   has_many :groups, through: :group_memberships
   has_and_belongs_to_many :messages
   belongs_to :user
-  scope :without, -> (p) {where "raw_phone_number NOT LIKE?","%#{p}"}
+  scope :without, -> (p) {where "raw_phone_number NOT LIKE ?","%#{p}"}
   scope :raw_phone_number, -> (p) {where "raw_phone_number LIKE ?", "%#{p}"}
+  scope :without_twilio, -> {where "raw_phone_number NOT LIKE ?", to_raw(ENV["TWILIO_PHONE_NUMBER"])}
 
   validates :phone_number, presence: true
   phone_number :phone_number

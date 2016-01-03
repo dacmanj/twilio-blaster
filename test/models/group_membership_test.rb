@@ -13,7 +13,7 @@
 require 'test_helper'
 
 class GroupMembershipTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "group_memberships_exist" do
+    assert_operator GroupMembership.count, :>=, 1
+  end
 end

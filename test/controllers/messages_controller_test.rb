@@ -20,7 +20,6 @@ class MessagesControllerTest < ActionController::TestCase
   setup do
     @message = messages(:one)
     log_in_as(users(:john))
-
   end
 
   test "should get index" do

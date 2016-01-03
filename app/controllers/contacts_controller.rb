@@ -61,7 +61,7 @@ class ContactsController < ApplicationController
   def update
     respond_to do |format|
       if @contact.update(contact_params)
-        if URI(request.referer).path == '/'
+        if request.referer.present? && URI(request.referer).path == '/'
           redirect_path = URI(request.referer).path
         else
           redirect_path = contacts_path

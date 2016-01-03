@@ -14,6 +14,8 @@ require 'test_helper'
 class GroupsControllerTest < ActionController::TestCase
   setup do
     @group = groups(:one)
+    log_in_as(users(:john))
+
   end
 
   test "should get index" do

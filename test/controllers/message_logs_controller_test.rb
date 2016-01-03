@@ -22,6 +22,7 @@ require 'test_helper'
 class MessageLogsControllerTest < ActionController::TestCase
   setup do
     @message_log = message_logs(:one)
+    log_in_as(users(:john))
   end
 
   test "should get index" do

@@ -17,7 +17,7 @@
 require 'test_helper'
 
 class MessageTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "message_count" do
+    assert_operator Message.count, :>=, 1
+  end
 end

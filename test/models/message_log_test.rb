@@ -20,7 +20,7 @@
 require 'test_helper'
 
 class MessageLogTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "message_log_count" do
+    assert_operator MessageLog.count, :>=, 1
+  end
 end

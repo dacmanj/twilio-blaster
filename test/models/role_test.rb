@@ -13,7 +13,13 @@
 require 'test_helper'
 
 class RoleTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+    test "user and admin role defined" do
+      assert Role.find_by_name("admin").present?
+      assert Role.find_by_name("user").present?
+    end
+
+    test "more than one role" do
+      assert_operator Role.count, :>=, 1
+    end
 end

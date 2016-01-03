@@ -12,7 +12,7 @@
 require 'test_helper'
 
 class GroupTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "group_count" do
+    assert_operator Group.count, :>=, 1
+  end
 end

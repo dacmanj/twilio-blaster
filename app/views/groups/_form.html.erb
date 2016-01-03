@@ -10,7 +10,7 @@
   </div>
 
   <div class="form-inputs">
-    <%= f.association :contacts, :collection => Contact.where("phone_number <> '#{ENV['TWILIO_PHONE_NUMBER']}'").map{|a| ["#{a.name} <#{a.phone_number}>", a.id, {"data-name" => a.name,"data-phone-number" => a.phone_number}]} %>
+    <%= f.association :contacts, :collection => Contact.without_twilio.map{|a| ["#{a.name} <#{a.phone_number}>", a.id, {"data-name" => a.name,"data-phone-number" => a.phone_number}]} %>
   </div>
 
   <div class="form-actions">

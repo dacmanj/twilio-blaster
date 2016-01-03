@@ -18,6 +18,7 @@ require 'test_helper'
 class ContactsControllerTest < ActionController::TestCase
   setup do
     @contact = contacts(:one)
+    log_in_as(users(:john))
   end
 
   test "should get index" do
@@ -36,7 +37,7 @@ class ContactsControllerTest < ActionController::TestCase
       post :create, contact: { first_name: @contact.first_name, last_name: @contact.last_name, opt_in: @contact.opt_in, phone_number: @contact.phone_number, user_id: @contact.user_id }
     end
 
-    assert_redirected_to contact_path(assigns(:contact))
+    assert_redirected_to contacts_path
   end
 
   test "should show contact" do
@@ -51,7 +52,7 @@ class ContactsControllerTest < ActionController::TestCase
 
   test "should update contact" do
     patch :update, id: @contact, contact: { first_name: @contact.first_name, last_name: @contact.last_name, opt_in: @contact.opt_in, phone_number: @contact.phone_number, user_id: @contact.user_id }
-    assert_redirected_to contact_path(assigns(:contact))
+    assert_redirected_to contacts_path
   end
 
   test "should destroy contact" do
