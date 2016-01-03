@@ -19,13 +19,13 @@
 one:
   id: 1
   body: Test to John
-  to_phone_number: 015555555555
-  from_phone_number: 015555555556
+  to_phone_number: contacts(:john).phone_number
+  from_phone_number: contacts(:jane).phone_number
   status: Delivered
 
 two:
   id: 2
   body: Test to Jane
-  to_phone_number: 015555555556
-  from_phone_number: 015555555555
+  to_phone_number: contacts(:jane).phone_number
+  from_phone_number: contacts(:john).phone_number
   status: Delivered

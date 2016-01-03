@@ -74,10 +74,6 @@ class Message < ActiveRecord::Base
       msg.delete(:media_url) if msg[:media_url].blank?
       msg[:status_callback] = base_url + '/twilio/status'
       msg.slice!(:to, :from, :body, :media_url, :status_callback)
-      p "sending message via twilio"
-      p msg
-
-      p "sid: #{Rails.application.secrets.twilio_account_sid.present?}"
       client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
       message = client.messages.create msg
   end
