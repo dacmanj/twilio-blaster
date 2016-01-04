@@ -11,16 +11,11 @@
 #  updated_at        :datetime         not null
 #  media_url         :string
 #  direction         :string
-#  message_type      :string
 #
 
 class Message < ActiveRecord::Base
   include Filterable
   include Authority::Abilities
-  validates :body, presence: true
-  validates :to_phone_number, presence: true
-  validates :from_phone_number, presence: true
-
 
   scope :status, -> (status) { where status: status }
   scope :direction, -> (direction) { where direction: direction }
@@ -35,7 +30,12 @@ class Message < ActiveRecord::Base
     p "processing new message"
     if (self.direction == "incoming")
       #check to see if message from contact and if so re-write "caller" id
-      self.from_phone_number = Contact.caller_id_lookup(self.from_phone_number)
+      normalized_phone_num = PhoneNumber::Number.parse(self.from_phone_number).to_s("%C%a%m%p")
+      p "normalized from phone num: #{normalized_phone_num}"
+      contact = Contact.raw_phone_number(normalized_phone_num).first
+      if (contact.present?)
+        self.from_phone_number = "#{contact.name} <#{contact.twilio_phone_number}>"
+      end
 
       #send sms to administrators with incoming message
       admin_contact_ids = User.with_role(:admin).map{|x| x.contacts}.flatten.map{|x| x.id}
@@ -74,6 +74,10 @@ class Message < ActiveRecord::Base
       msg.delete(:media_url) if msg[:media_url].blank?
       msg[:status_callback] = base_url + '/twilio/status'
       msg.slice!(:to, :from, :body, :media_url, :status_callback)
+      p "sending message via twilio"
+      p msg
+
+      p "sid: #{Rails.application.secrets.twilio_account_sid.present?}"
       client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
       message = client.messages.create msg
   end
