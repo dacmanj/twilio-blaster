@@ -27,16 +27,12 @@ class ContactTest < ActiveSupport::TestCase
     refute_nil contacts(:one)
   end
 
-  test "valid contact to_twilio" do
-    assert_equal PhoneNumber::Number.parse(contacts(:one).raw_phone_number).to_s("+%c%a%m%p"), contacts(:one).to_twilio
-  end
-
-  test "valid contact to_raw" do
-    assert_equal PhoneNumber::Number.parse(contacts(:one).raw_phone_number).to_s("%C%a%m%p"), contacts(:one).raw_phone_number
+  test "valid contact e164" do
+    assert_equal Phonelib.parse(contacts(:one).phone_number).e164, contacts(:one).e164
   end
 
   test "match contact from phone number" do
-    assert_equal Contact.search(contacts(:one).raw_phone_number), contacts(:one)
+    assert_equal Contact.by_phone_number(contacts(:one).phone_number).first, contacts(:one)
   end
 
 end

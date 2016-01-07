@@ -1,30 +1,24 @@
+require 'active_support/concern'
+
 module PhoneNumberFormats
   extend ActiveSupport::Concern
+  class_methods do
+    def e164(num)
+      Phonelib.parse(num).e164
+    end
+    def phone_numbers(obj)
+      number_arr = []
+      obj.each{ |c|
+        number_arr.push c.e164
+      }
+      number_arr
+    end
+  end
 
-  module ClassMethods
-    def parse_phone_num(params)
-      num = params[:number].dup.to_s.gsub(/[^0-9]/, "")
-      fmt = FORMAT[params[:format]].dup
-      PhoneNumber::Number.parse(num).to_s(fmt)
-    end
-    def phone_number_format(params)
-      FORMAT[params.to_sym] || formats
-    end
-    def to_raw(num)
-      parse_phone_num({number: num, format: :raw})
-    end
-    def to_twilio(num)
-      parse_phone_num({number: num, format: :twilio})
-    end
+  def e164
+    Phonelib.parse(self[:phone_number]).e164
   end
-  def to_raw
-    self.phone_number.to_s(FORMAT[:raw])
+  def format_phone_number
+    self[:phone_number] = Phonelib.parse(self[:phone_number]).e164
   end
-  def to_twilio
-    self.phone_number.to_s(FORMAT[:twilio])
-  end
-  FORMAT = {
-        twilio: "+%c%a%m%p",
-        raw: "%C%a%m%p"
-  }
 end

@@ -35,12 +35,9 @@ class MessageLog < ActiveRecord::Base
 
   scope :direction, -> (direction) { where direction: direction }
 
-  phone_number :phone_number
-
   def fix_numbers
-    twilio_format = Contact.phone_number_format(:twilio)
-    self.to_phone_number = Contact.to_twilio(self.to_phone_number)
-    self.from_phone_number = Contact.to_twilio(self.from_phone_number)
+    self.to_phone_number = Contact.e164(self.to_phone_number)
+    self.from_phone_number = Contact.e164(self.from_phone_number)
   end
 
 end

@@ -22,13 +22,13 @@ class Contact < ActiveRecord::Base
   has_many :groups, through: :group_memberships
   has_and_belongs_to_many :messages
   belongs_to :user
-  scope :without, -> (p) {where "raw_phone_number NOT LIKE ?","%#{p}"}
-  scope :raw_phone_number, -> (p) {where "raw_phone_number LIKE ?", "%#{p}"}
-  scope :without_twilio, -> {where "raw_phone_number NOT LIKE ?", to_raw(ENV["TWILIO_PHONE_NUMBER"])}
+  scope :without, -> (p) {where "phone_number NOT LIKE ?","%#{p}"}
+  scope :by_phone_number, -> (p) {where "phone_number LIKE ?", "%#{p}"}
+  scope :by_e164, -> (p) {where "phone_number LIKE ?", "%#{e164(p)}"}
+  scope :without_twilio, -> {where "phone_number NOT LIKE ?", e164(ENV["TWILIO_PHONE_NUMBER"])}
 
-  validates :phone_number, presence: true
-  phone_number :phone_number
-
+  before_save :format_phone_number
+  validates :phone_number, phone: { possible: true, allow_blank: false}
 
   def name
     "#{first_name} #{last_name}"
@@ -56,31 +56,17 @@ class Contact < ActiveRecord::Base
     end
   end
 
-  def self.search(params)
-    if params.is_a? String
-      normalized_phone_num = parse_phone_num({number: params, format: :raw})
-    else
-      normalized_phone_num = parse_phone_num({number: params[:number], format: :raw})
-    end
-    contact = Contact.raw_phone_number(normalized_phone_num).first
-  end
-
-  def self.raw_phone_numbers(contacts)
-    contact_arr = []
-    contacts.each{ |c|
-      contact_arr.push c.to_raw
-    }
-    contact_arr
+  def called_id
+    caller_id = "#{self.name} <#{self.e164}>"
   end
 
   def self.caller_id_lookup(num)
-    self.to_raw(num)
-    contact = Contact.raw_phone_number(num).first
-    if (contact.present?)
-      caller_id = "#{contact.name} <#{contact.to_twilio}>"
+    num = self.e164(num)
+    obj = self.by_phone_number(num).first
+    if (obj.present?)
+      caller_id = "#{obj.name} <#{obj.e164}>"
     else
-      caller_id = "<#{self.to_twilio(num)}>"
+      caller_id = "<#{obj.e164}>"
     end
   end
-
 end

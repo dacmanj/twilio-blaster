@@ -18,13 +18,13 @@
 one:
   first_name: "John"
   last_name: "Smith"
-  raw_phone_number: "018033609843"
+  phone_number: "+18033609843"
   opt_in: 2015-12-13 11:17:19
   user: john
 
 two:
   first_name: "Jane"
   last_name: "Smith"
-  raw_phone_number: "012025560811"
+  phone_number: "+12025560811"
   opt_in: 2015-12-13 11:17:19
   user: jane
