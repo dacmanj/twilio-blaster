@@ -5,7 +5,7 @@ class VisitorsController < ApplicationController
       @user = current_user
       @contacts = current_user.contacts
       authorize_action_for(@contacts)
-      phone_numbers = Contact.raw_phone_numbers(@contacts)
+      phone_numbers = Contact.phone_numbers(@contacts)
       @message_logs = MessageLog.by_phone_numbers(phone_numbers).order("created_at DESC").paginate(page: params[:page], :per_page=>10)
       authorize_action_for(@message_logs)
     end
