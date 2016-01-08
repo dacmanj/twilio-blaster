@@ -56,7 +56,7 @@ class Contact < ActiveRecord::Base
     end
   end
 
-  def called_id
+  def caller_id
     caller_id = "#{self.name} <#{self.e164}>"
   end
 
