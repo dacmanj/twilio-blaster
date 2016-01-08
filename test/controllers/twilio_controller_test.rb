@@ -15,7 +15,7 @@ class TwilioControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should update status" do #write this test
+  test "should update status of an SMS" do #write this test
     assert_not_equal "delivered", @message_log.status
 
     post :status,
@@ -23,5 +23,15 @@ class TwilioControllerTest < ActionController::TestCase
 
     assert_equal "delivered", MessageLog.find_by_sid("MM3b0b18a1067e45db84b8c478816dfc8b").status
   end
+
+
+    test "should update status" do #write this test
+      assert_not_equal "delivered", @message_log.status
+
+      post :status,
+        "CallSid"=>"MM3b0b18a1067e45db84b8c478816dfc8b", "CallStatus"=>"delivered", "Body"=>"Office closed", "MessageStatus"=>"delivered", "To"=>"+18033609843", "MessageSid"=>"MM3b0b18a1067e45db84b8c478816dfc8b", "AccountSid"=>"AC26cffd81446061228c9feb816c7744f2", "From"=>"+12027592300", "ApiVersion"=>"2010-04-01"
+
+      assert_equal "delivered", MessageLog.find_by_sid("MM3b0b18a1067e45db84b8c478816dfc8b").status
+    end
 
 end

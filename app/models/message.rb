@@ -83,7 +83,7 @@ class Message < ActiveRecord::Base
 
       if msg[:message_type] == "Voice" || msg[:message_type] == "Both"
         msg[:url] = base_url + "/twilio/message?id=#{msg[:message_id]}"
-        message = client.calls.create msg.slice(:to, :from, :url, :status_callback)
+        message = client.calls.create msg.slice(:to, :from, :url, :status_callback, 'IfMachine': "continue")
         MessageLog.new(sid: message.sid, to_phone_number: message.to, from_phone_number: message.from, message_type: "Voice",  message_id: msg[:message_id], date_sent: Time.now).save
       end
       message
