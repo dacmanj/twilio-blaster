@@ -90,7 +90,7 @@ class Message < ActiveRecord::Base
   end
 
   def body_for_voice
-    self.body.replace("PFLAG","P FLAG")
+    self.body.sub("PFLAG","P FLAG")
   end
 
 end
