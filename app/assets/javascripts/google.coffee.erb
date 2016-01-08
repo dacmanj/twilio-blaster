@@ -1,0 +1,28 @@
+GOOGLE_API_KEY = "<%= ENV['GOOGLE_API_KEY'] %>"
+
+setheaders = (request) ->
+  request.setRequestHeader("Content-Type", "application/json")
+
+$.shorten = (url, callback) ->
+  $.ajax {type:"post", url: "https://www.googleapis.com/urlshortener/v1/url?key=#{GOOGLE_API_KEY}", beforeSend: setheaders, data: "{\"longUrl\": \"#{url}\"}", success: callback}
+
+replace_text_in_textarea = (str,replacement,id) ->
+  text = $(id).val()
+  $(id).val(text.replace(str,replacement))
+
+replace_link = (obj,id) ->
+  replace_text_in_textarea(obj.longUrl,obj.id,"#message_body")
+  replace_text_in_textarea(obj.longUrl.slice(0,-1),obj.id,"#message_body")
+
+replace_link_in_message_body = (obj) ->
+  replace_link obj, "#message_body"
+
+$.shorten_message_body = ->
+  links = linkify.find($("#message_body").val())
+  for link in links
+    do (link) ->
+      replace_text_in_textarea(link.value,link.href,"#message_body")
+      $.shorten(link.href,replace_link_in_message_body)
+
+$ ->
+  $("div.message_body.text label").append("&nbsp;").append($("<a/>").html("[Shorten Links]").click($.shorten_message_body))
