@@ -24,5 +24,12 @@ ready = ->
     $("#message_to_phone_number").val(to)
   $("#message_group_ids, #message_contact_ids").change fill_out_to_field
 
+  $("label[for=message_body]").append("<span id='message_body_length'/>")
+  body_character_count = ->
+    char_count = $("#message_body").val().length
+    $("#message_body_length").html(" (#{char_count}/140)")
+
+  $("#message_body").on 'keyup', body_character_count
+
 $(document).ready(ready)
 $(document).on('page:load', ready)

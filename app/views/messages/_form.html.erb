@@ -17,8 +17,7 @@
 
     <%= f.input :message_type, :required => true, :collection => ["Text","Voice","Both"] %>
 
-
-    <%= f.input :body, :as => :text, :input_html => {:maxlength => 140, :size => 40}, required: true%>
+    <%= f.input :body, :as => :text, :input_html => {:size => 40}, required: true%>
 
     <%    img = { nil => nil,
             :status_open_image => "https://www.opm.gov/img/Policy/SnowAndDismissal/status_open.jpg",

@@ -72,7 +72,6 @@ class Message < ActiveRecord::Base
 
       #delete MMS if not used
       msg.delete(:media_url) if msg[:media_url].blank?
-
       client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
       msg[:status_callback] = base_url + '/twilio/status' #set callback for sms
 
