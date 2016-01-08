@@ -5,7 +5,7 @@
     <%
       main_contact = Contact.by_phone_number(ENV["TWILIO_PHONE_NUMBER"]).first
       if main_contact.present?
-        default_from = main_contact.first.caller_id
+        default_from = main_contact.caller_id
       else
         default_from = ENV["TWILIO_PHONE_NUMBER"]
       end

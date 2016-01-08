@@ -25,4 +25,4 @@ $.shorten_message_body = ->
       $.shorten(link.href,replace_link_in_message_body)
 
 $ ->
-  $("label[for=message_body]").append($("&nbsp;<span><a id='message_body_length_shortener_link'>[Shorten Link]</span>").click($.shorten_message_body))
+  $("label[for=message_body]").append($("<span>&nbsp;<a id='message_body_length_shortener_link'>[Shorten Links]</span>").click($.shorten_message_body))
