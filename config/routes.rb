@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get '/signout' => 'sessions#destroy', :as => :signout
   get '/auth/failure' => 'sessions#failure'
 
-  post 'twilio/voice' => 'twilio#voice'
+  post 'twilio/message' => 'twilio#message'
   post 'twilio/inbound' => 'twilio#inbound'
   post 'twilio/status' => 'twilio#status'
 end

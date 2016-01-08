@@ -6,18 +6,13 @@ class TwilioController < ApplicationController
 
   skip_before_action :verify_authenticity_token
 
-  def voice
-  	response = Twilio::TwiML::Response.new do |r|
-  	  r.Say 'Hey there. Congrats on integrating Twilio into your Rails 4 app.', :voice => 'alice'
-#         r.Play 'http://linode.rabasa.com/cantina.mp3'
-  	end
-
-  	render_twiml response
-  end
   def message
-  	response = Twilio::TwiML::Response.new do |r|
-  	  r.Say 'Hey there. Congrats on integrating Twilio into your Rails 4 app.', :voice => 'alice'
-  	end
+    message_id = params[:id]
+    if message_id.present? && message = Message.find(message_id).body
+    	response = Twilio::TwiML::Response.new do |r|
+    	  r.Say message, :voice => 'alice', :loop => 3
+    	end
+    end
 
   	render_twiml response
   end
@@ -40,15 +35,16 @@ class TwilioController < ApplicationController
 
    # send back an empty response
    #Parameters: {"SmsSid"=>"MM3b0b18a1067e45db84b8c478816dfc8b", "SmsStatus"=>"delivered", "Body"=>"Office closed", "MessageStatus"=>"delivered", "To"=>"+18033609843", "MessageSid"=>"MM3b0b18a1067e45db84b8c478816dfc8b", "AccountSid"=>"AC26cffd81446061228c9feb816c7744f2", "From"=>"+12027592300", "ApiVersion"=>"2010-04-01"}
-   msg_log = MessageLog.find_by_sid(params['MessageSid'])
+   sid = params['MessageSid'] || params['CallSid']
+   msg_log = MessageLog.find_by_sid(sid)
    if (msg_log.present?)
-     msg_log.status = params[:MessageStatus]
+     msg_log.status = params[:MessageStatus] || params[:CallStatus]
      msg_log.account_sid = params[:AccountSid]
      msg_log.save
      msg = msg_log.message
      msg_count = msg.message_logs.count
      pending = msg.message_logs.where(status: nil).count
-     delivered = msg.message_logs.where("status = ?","delivered").count
+     delivered = msg.message_logs.where("status = ?","delivered").count + msg.message_logs.where("status = ?","completed").count
      msg.status = "delivered #{delivered}/#{msg_count}"
      msg.save
    end

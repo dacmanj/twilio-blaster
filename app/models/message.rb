@@ -32,7 +32,6 @@ class Message < ActiveRecord::Base
   after_create :process_new_message
 
   def process_new_message
-    p "processing new message"
     if (self.direction == "incoming")
       #check to see if message from contact and if so re-write "caller" id
       self.from_phone_number = Contact.caller_id_lookup(self.from_phone_number)
@@ -53,8 +52,7 @@ class Message < ActiveRecord::Base
     }
     self.contacts.each { |c|
       recipients.push("#{c.name} <#{c.phone_number}>")
-      message = Message.send_message to: c.phone_number, body: self.body, media_url: self.media_url
-      MessageLog.new(sid: message.sid, to_phone_number: message.to, from_phone_number: message.from, message_id: self.id, date_sent: Time.now).save
+      Message.send_message to: c.phone_number, body: self.body, media_url: self.media_url, message_id: self.id, message_type: self.message_type
     }
     self.to_phone_number = recipients.join(", ")
     self.status = "sent"
@@ -70,11 +68,26 @@ class Message < ActiveRecord::Base
       msg[:from] = msg[:from] || ENV['TWILIO_PHONE_NUMBER']
       msg[:media_url] = img[msg[:img].to_sym] if msg[:img].present?
       #filter parameters
-      base_url = msg[:base_url] || ENV['BASE_URL'] || "https://e6d5bcc3.ngrok.io" #request.base_url
+      base_url = msg[:base_url] || ENV['BASE_URL'] #request.base_url
+
+      #delete MMS if not used
       msg.delete(:media_url) if msg[:media_url].blank?
-      msg[:status_callback] = base_url + '/twilio/status'
-      msg.slice!(:to, :from, :body, :media_url, :status_callback)
+
       client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
-      message = client.messages.create msg
+      msg[:status_callback] = base_url + '/twilio/status' #set callback for sms
+
+      if msg[:message_type] == "Text" || msg[:message_type] == "Both"
+        msg[:status_callback] = base_url + '/twilio/status' #set callback for sms
+        message = client.messages.create msg.slice(:to, :from, :body, :media_url, :status_callback)
+        MessageLog.new(sid: message.sid, to_phone_number: message.to, from_phone_number: message.from, message_type: "Text",  message_id: msg[:message_id], date_sent: Time.now).save
+      end
+
+      if msg[:message_type] == "Voice" || msg[:message_type] == "Both"
+        msg[:url] = base_url + "/twilio/message?id=#{msg[:message_id]}"
+        message = client.calls.create msg.slice(:to, :from, :url, :status_callback)
+        MessageLog.new(sid: message.sid, to_phone_number: message.to, from_phone_number: message.from, message_type: "Voice",  message_id: msg[:message_id], date_sent: Time.now).save
+      end
+      message
   end
+
 end

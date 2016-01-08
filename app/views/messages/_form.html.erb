@@ -15,6 +15,9 @@
     <%= f.association :contacts, :collection => Contact.without_twilio.map{|a| ["#{a.name} <#{a.phone_number}>", a.id, {"data-name" => a.name,"data-phone-number" => a.phone_number}]} %>
     <%= f.input :to_phone_number, :readonly => true, :required => true %>
 
+    <%= f.input :message_type, :required => true, :collection => ["Text","Voice","Both"] %>
+
+
     <%= f.input :body, :as => :text, :input_html => {:maxlength => 140, :size => 40}, required: true%>
 
     <%    img = { nil => nil,
