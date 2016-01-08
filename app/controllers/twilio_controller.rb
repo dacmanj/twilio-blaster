@@ -8,7 +8,7 @@ class TwilioController < ApplicationController
 
   def message
     message_id = params[:id]
-    if message_id.present? && message = Message.find(message_id).body
+    if message_id.present? && message = Message.find(message_id).body_for_voice
     	response = Twilio::TwiML::Response.new do |r|
     	  r.Say message, :voice => 'alice', :loop => 3
     	end
