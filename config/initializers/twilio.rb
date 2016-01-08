@@ -5,6 +5,6 @@
   if (number.phone_number ==  ENV['TWILIO_PHONE_NUMBER'])
     number.update(
     voice_url: "#{ENV['BASE_URL']}/twilio/inbound",
-    sms_url: "#{ENV['BASE_URL']}/twilio/inbound"
+    sms_url: "#{ENV['BASE_URL']}/twilio/inbound")
   end
 end
