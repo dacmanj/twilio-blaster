@@ -21,9 +21,10 @@
 
 one:
   to_phone_number: contacts(:john).phone_number
-  from_phone_number: contacts(:jane).phone_number
+  from_phone_number: ENV['TWILIO_PHONE_NUMBER']
   status: nil
   sid: "MM3b0b18a1067e45db84b8c478816dfc8b"
+  message_type: Text
   error_code: MyString
   error_message: MyString
   date_sent: 2015-12-15 07:20:37
@@ -33,9 +34,23 @@ one:
 
 two:
   to_phone_number: contacts(:jane).phone_number
-  from_phone_number: contacts(:john).phone_number
+  from_phone_number: ENV['TWILIO_PHONE_NUMBER']
   status: nil
-  sid: MyString
+  sid: "MM3b0b18a1067e45db84b8c478816dfc8c"
+  message_type: Text
+  error_code: MyString
+  error_message: MyString
+  date_sent: 2015-12-15 07:20:37
+  account_sid: MyString
+  billing_reference: MyString
+  message_id: 2
+
+three:
+  to_phone_number: contacts(:jane).phone_number
+  from_phone_number: ENV['TWILIO_PHONE_NUMBER']
+  status: nil
+  message_type: Voice
+  sid: "MM3b0b18a1067e45db84b8c478816dfc8d"
   error_code: MyString
   error_message: MyString
   date_sent: 2015-12-15 07:20:37

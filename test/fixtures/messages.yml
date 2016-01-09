@@ -19,6 +19,7 @@
 one:
   id: 1
   body: Test to John
+  message_type: Text
   to_phone_number: contacts(:john).phone_number
   from_phone_number: contacts(:jane).phone_number
   status: Delivered
@@ -26,6 +27,15 @@ one:
 two:
   id: 2
   body: Test to Jane
+  message_type: Text
+  to_phone_number: contacts(:jane).phone_number
+  from_phone_number: contacts(:john).phone_number
+  status: Delivered
+
+three:
+  id: 3
+  body: Call to Jane
+  message_type: Text
   to_phone_number: contacts(:jane).phone_number
   from_phone_number: contacts(:john).phone_number
   status: Delivered

@@ -35,6 +35,7 @@ class TwilioController < ApplicationController
 
    # send back an empty response
    #Parameters: {"SmsSid"=>"MM3b0b18a1067e45db84b8c478816dfc8b", "SmsStatus"=>"delivered", "Body"=>"Office closed", "MessageStatus"=>"delivered", "To"=>"+18033609843", "MessageSid"=>"MM3b0b18a1067e45db84b8c478816dfc8b", "AccountSid"=>"AC26cffd81446061228c9feb816c7744f2", "From"=>"+12027592300", "ApiVersion"=>"2010-04-01"}
+   #Parameters: {"Called"=>"+18033609843", "ToState"=>"SC", "CallerCountry"=>"US", "Direction"=>"outbound-api", "Timestamp"=>"Fri, 08 Jan 2016 17:18:38 +0000", "CallbackSource"=>"call-progress-events", "CallerState"=>"District Of Columbia", "ToZip"=>"29169", "SequenceNumber"=>"0", "CallSid"=>"CA5105e000797cb5a7b38f8851de7fb3fa", "To"=>"+18033609843", "CallerZip"=>"", "ToCountry"=>"US", "ApiVersion"=>"2010-04-01", "CalledZip"=>"29169", "CalledCity"=>"COLUMBIA", "CallStatus"=>"completed", "Duration"=>"1", "From"=>"+12027592300", "CallDuration"=>"10", "AccountSid"=>"AC26cffd81446061228c9feb816c7744f2", "CalledCountry"=>"US", "CallerCity"=>"", "Caller"=>"+12027592300", "FromCountry"=>"US", "ToCity"=>"COLUMBIA", "FromCity"=>"", "CalledState"=>"SC", "FromZip"=>"", "FromState"=>"District Of Columbia"}
    sid = params['MessageSid'] || params['CallSid']
    msg_log = MessageLog.find_by_sid(sid)
    if (msg_log.present?)
