@@ -15,6 +15,7 @@
 #  message_id        :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  message_type      :string
 #
 
 module MessageLogsHelper
