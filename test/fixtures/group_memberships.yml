@@ -21,3 +21,10 @@ two:
   group_id: 1
   contact_id: 1
   role: MyString
+
+<% 100.times do |n| %>
+group_membership_<%= n %>:
+  group: one
+  contact: contacts("contact_#{n}")
+  role: user
+<% end %>

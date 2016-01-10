@@ -28,3 +28,10 @@ two:
   phone_number: "+12025560811"
   opt_in: 2015-12-13 11:17:19
   user: jane
+
+<% 100.times do |n| %>
+contact_<%= n %>:
+  first_name: <%= "user" %>
+  last_name: <%= "#{n}" %>
+  phone_number: <%= "+120255606%02d" % n %>
+<% end %>
