@@ -10,8 +10,8 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>To</th>
         <th>From</th>
+        <th>To</th>
         <th>Date</th>
         <th>Message</th>
       </tr>
@@ -20,8 +20,8 @@
     <tbody>
       <% @message_logs.each do |message_log| %>
       <tr>
-        <td><%= message_log.to_phone_number %></td>
         <td><%= message_log.from_phone_number %></td>
+        <td><%= message_log.to_phone_number %></td>
         <td><%= l message_log.date_sent, :format => :shorter %></td>
         <td><%= message_log.message.body unless message_log.message.blank? %></td>
       </tr>
