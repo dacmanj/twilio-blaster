@@ -8,8 +8,8 @@
     <tr>
       <th>ID</th>
       <th>Date sent</th>
-      <th>To</th>
       <th>From</th>
+      <th>To</th>
       <th>Type</th>
       <th>Status</th>
       <th>Message</th>
@@ -22,8 +22,8 @@
       <tr>
         <td><%= link_to message_log.id, message_log %></td>
         <td><%= message_log.date_sent %></td>
-        <td><%= message_log.to_phone_number %></td>
         <td><%= message_log.from_phone_number %></td>
+        <td><%= message_log.to_phone_number %></td>
         <td><%= message_log.message_type %></td>
         <td><%= "#{message_log.status} #{message_log.error_code} #{message_log.error_message}"%></td>
         <td><%= message_log.message.body.truncate(25) unless message_log.message.blank? %></td>
