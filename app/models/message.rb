@@ -40,6 +40,7 @@ class Message < ActiveRecord::Base
       admin_contact_ids = User.with_role(:admin).map{|x| x.contacts}.flatten.map{|x| x.id}
       Message.new(contact_ids: admin_contact_ids, from_phone_number: self.from_phone_number, to_phone_number: self.to_phone_number, message_type: "Text", direction: "outgoing", status: "forwarding", body: "DO NOT REPLY... From #{self.from_phone_number}: #{self.body}").save
       self.status = "forwarded"
+      self.save
     end
     self.direction = "outgoing" if self.direction.blank?
 
