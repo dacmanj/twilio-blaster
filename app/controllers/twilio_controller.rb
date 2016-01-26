@@ -23,6 +23,7 @@ class TwilioController < ApplicationController
       m.to_phone_number = params[:To]
       m.from_phone_number = params[:From]
       m.body = params[:Body]
+      m.status = params[:SmsStatus]
       m.direction = "incoming"
       m.message_logs.push(MessageLog.new(sid: params[:MessageSid], status: params[:SmsStatus], message_type: "Text", to_phone_number: params[:To], from_phone_number: params[:From], date_sent: Time.now))
     end

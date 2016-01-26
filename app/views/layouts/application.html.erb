@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Emergency Alerts" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Twilio Blaster" %>">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+    <link rel="icon" href="favicon.ico" />
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
