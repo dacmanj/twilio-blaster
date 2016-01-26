@@ -23,7 +23,7 @@
         <td><%= message.from_phone_number %></td>
         <td><%= truncate(message.to_phone_number, length:15) %></td>
         <td><%= link_to truncate(message.body, length:15), message %></td>
-        <td class="rowlink-skip"><%= link_to message.status, message_logs_path(:message_id => message.id) %></td>
+        <td class="rowlink-skip"><%= link_to message.status || "No Status", message_logs_path(:message_id => message.id) %></td>
         <td><%= case message.direction
                   when "incoming"
                     glyph(:arrow_left)
